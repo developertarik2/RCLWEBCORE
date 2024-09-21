@@ -1,0 +1,179 @@
+﻿@model RCLWEB.DATA.Models.T_CLIENT1
+@{
+    ViewData["Title"] = "Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link rel="stylesheet" href="~/css/bo.css" asp-append-version="true" />
+</head>
+
+<div class="row">
+    <div class="col-md-2">
+        CODE @Model.RCODE
+    </div>
+    <div class="col-md-2">
+        <a target="_blank" class="btn btn-primary" asp-action="BoInfo">PRINT</a>
+    </div>
+</div>
+<div class="mt-5">
+    <div style="background-image: image('royal.png');backface-visibility: visible;background-size: cover">
+
+        <!--CSs File linked  --->
+        <!---Logo Integration--->
+        <div style="position:absolute;left:50%;margin-left:-306px;top:150px;width:650px;height:1000px;border-style:outset;">
+            <img src="~/images/royal.png" width=700 height=900>
+            <!--
+                    <div style="position:absolute;left:0px;top:0px">
+                    </div>
+            -->
+
+            <div style="position:absolute;left:200.65px;top:7.60px" class="cls_003"><span class="cls_003">Royal Capital Ltd</span></div>
+
+
+            <!---Address--->
+            <div style="position:absolute;left:190.40px;top:48.30px" class="cls_004"><span class="cls_004">DSE Annex Building(2nd Floor)</span></div>
+            <div style="position:absolute;left:188.40px;top:62.30px" class="cls_004"><span class="cls_004">9/E,Motijheel C/A,Dhaka -1000 </span></div>
+            <div style="position:absolute;left:140.90px;top:77.30px" class="cls_004"><span class="cls_004">Tel: 02-9556618 & 9551068,Fax:02-9571735</span></div>
+
+
+            <!---personal Details--->
+
+            <div style="position:absolute;left:50px;top:120.25px;background-color:darkgrey;width:550px;text-align:center;" class="cls_004"><span class="cls_004"> PERSONAL DETAILS </span></div>
+            <div style="position:absolute;left:64.80px;top:149.85px" class="cls_005"><span class="cls_005">BO ID</span></div>
+            <div style="position:absolute;left:286.80px;top:149.85px" class="cls_008"><span id="boid" runat="server" class="cls_008">@Model.Boid</span></div>
+            <div style="position:absolute;left:64.80px;top:163.70px" class="cls_005"><span class="cls_005">BO Type</span></div>
+            <div style="position:absolute;left:286.80px;top:163.85px" class="cls_008"><span id="botype" runat="server" class="cls_008">@Model.Botype</span></div>
+            <div style="position:absolute;left:64.80px;top:174.70px" class="cls_005"><span class="cls_005">BO Category</span></div>
+            <div style="position:absolute;left:286.80px;top:174.85px" class="cls_008"><span class="cls_008">@Model.Bocat</span></div>
+            <div style="position:absolute;left:64.80px;top:190.00px" class="cls_005"><span class="cls_005">Name of the First Holder /</span></div>
+            <div style="position:absolute;left:286.80px;top:190.15px" class="cls_008"><span id="fh_name" runat="server" class="cls_008">@Model.FhName</span></div>
+            <div style="position:absolute;left:64.80px;top:200.05px" class="cls_005"><span class="cls_005">Company</span></div>
+            <div style="position:absolute;left:64.80px;top:219.00px" class="cls_005"><span class="cls_005">Second Joint Holder</span></div>
+            <div style="position:absolute;left:286.80px;top:220.00px" class="cls_008"><span id="shimul1" runat="server" class="cls_008">@Model.ShName</span></div>
+
+            <div style="position:absolute;left:64.80px;top:234.30px" class="cls_005"><span class="cls_005">Third Joint Holder</span></div>
+            <div style="position:absolute;left:286.80px;top:234.30px" class="cls_008"><span id="shimul2" runat="server" class="cls_008"> </span></div>
+            <div style="position:absolute;left:64.80px;top:245.60px" class="cls_005"><span class="cls_005">Contact Person</span></div>
+            <div style="position:absolute;left:286.80px;top:245.60px" class="cls_008"><span id="cp" runat="server" class="cls_008">@Model.CpName</span></div>
+
+            <div style="position:absolute;left:64.80px;top:256.90px" class="cls_005"><span class="cls_005">Sex Code</span></div>
+            <div style="position:absolute;left:286.80px;top:256.05px" class="cls_008"><span id="sex" runat="server" class="cls_008">@Model.Sex</span></div>
+            <div style="position:absolute;left:64.80px;top:268.20px" class="cls_005"><span class="cls_005">Date of Birth / Registration</span></div>
+            <div style="position:absolute;left:286.80px;top:268.35px" class="cls_008"><span id="dob" runat="server" class="cls_008">@Convert.ToDateTime(Model.Dob).ToString("dd MMMM yyyy")</span></div>
+            <div style="position:absolute;left:64.80px;top:279.50px" class="cls_005"><span class="cls_005">Registration Number</span></div>
+            <div style="position:absolute;left:286.80px;top:279.50px" class="cls_008"><span id="regNum" runat="server" class="cls_008">@Model.RegNum</span></div>
+            <div style="position:absolute;left:64.80px;top:290.80px" class="cls_005"><span class="cls_005">Father / Husbands Name</span></div>
+            <div style="position:absolute;left:286.80px;top:290.95px" class="cls_008"><span id="father" runat="server" class="cls_008">@Model.Father</span></div>
+            <div style="position:absolute;left:64.80px;top:304.80px" class="cls_005"><span class="cls_005">Mothers Name</span></div>
+            <div style="position:absolute;left:286.80px;top:304.95px" class="cls_008"><span id="mother" runat="server" class="cls_008">@Model.Mother</span></div>
+            <div style="position:absolute;left:64.80px;top:316.80px" class="cls_005"><span class="cls_005">Occupation</span></div>
+            <div style="position:absolute;left:286.80px;top:316.95px" class="cls_008"><span id="occupation" runat="server" class="cls_008">@Model.Occupation</span></div>
+            <div style="position:absolute;left:64.80px;top:328.80px" class="cls_005"><span class="cls_005">Residency Flag</span></div>
+            <div style="position:absolute;left:286.80px;top:328.95px" class="cls_008"><span class="cls_008">Resident</span></div>
+            <div style="position:absolute;left:64.80px;top:340.80px" class="cls_005"><span class="cls_005">Citizen Of</span></div>
+            <div style="position:absolute;left:286.80px;top:340.95px" class="cls_008"><span class="cls_008">Bangladesh</span></div>
+            <div style="position:absolute;left:64.80px;top:354.10px" class="cls_005"><span class="cls_005">Address</span></div>
+            <div style="position:absolute;left:286.80px;top:354.25px" class="cls_008"><span id="add" runat="server" class="cls_008">@(Model.Add1 +" "+Model.add2+ " " + Model.add3)</span></div>
+
+
+            <div style="position:absolute;left:64.80px;top:365.25px" class="cls_005"><span class="cls_005">City</span></div>
+            <div style="position:absolute;left:286.80px;top:365.40px" class="cls_008"><span id="city" runat="server" class="cls_008">@Model.city</span></div>
+            <div style="position:absolute;left:64.80px;top:375.55px" class="cls_005"><span class="cls_005">State/Division</span></div>
+            <div style="position:absolute;left:286.80px;top:375.70px" class="cls_008"><span id="state" runat="server" class="cls_008">@Model.state</span></div>
+            <div style="position:absolute;left:64.80px;top:386.55px" class="cls_005"><span class="cls_005">Country</span></div>
+            <div style="position:absolute;left:286.80px;top:386.70px" class="cls_008"><span class="cls_008">BANGLADESH</span></div>
+            <div style="position:absolute;left:64.80px;top:396.55px" class="cls_005"><span class="cls_005">Postal Code</span></div>
+            <div style="position:absolute;left:286.80px;top:396.70px" class="cls_008"><span id="pCode" runat="server" class="cls_008">@Model.pCode</span></div>
+            <div style="position:absolute;left:64.80px;top:409.55px" class="cls_005"><span class="cls_005">Mobile</span></div>
+            <div style="position:absolute;left:286.80px;top:409.70px" class="cls_008"><span id="mobile1" runat="server" class="cls_008">@Model.mobile</span></div>
+            <div style="position:absolute;left:64.80px;top:420px" class="cls_005"><span class="cls_005">Email</span></div>
+            <div style="position:absolute;left:286.80px;top:420.55px" class="cls_008"><span id="email" runat="server" class="cls_008">@Model.email</span></div>
+            <div style="position:absolute;left:64.80px;top:435.80px" class="cls_005"><span class="cls_005">Fax</span></div>
+            <div style="position:absolute;left:286.80px;top:435.80px" class="cls_008"><span id="fax" runat="server" class="cls_008">@Model.fax</span></div>
+            <div style="position:absolute;left:64.80px;top:446.80px" class="cls_005"><span class="cls_005">Statement Cycle Code</span></div>
+            <div style="position:absolute;left:286.80px;top:446.95px" class="cls_008"><span class="cls_008">End of Month</span></div>
+
+
+
+
+            <!---new portion--->
+            <div style="position:absolute;left:64.80px;top:458.55px" class="cls_005"><span class="cls_005">First Holder National ID</span></div>
+            <div style="position:absolute;left:286.80px;top:458.55px" class="cls_008"><span id="nid1" runat="server" class="cls_008">@Model.NID1</span></div>
+            <div style="position:absolute;left:64.80px;top:470.80px" class="cls_005"><span class="cls_005">Second Holder National ID</span></div>
+            <div style="position:absolute;left:286.80px;top:470.80px" class="cls_008"><span id="nid2" runat="server" class="cls_008">@Model.NID2</span></div>
+            <div style="position:absolute;left:64.80px;top:483.80px" class="cls_005"><span class="cls_005">Third Holder National ID</span></div>
+            <div style="position:absolute;left:286.80px;top:483.95px" class="cls_008"><span class=" cls_008"></span></div>
+
+
+
+
+
+            <div style="position:absolute;left:50px;top:512.25px;width:550px;text-align:center;" class="cls_007"><span class="cls_007">SHORT NAME</span></div>
+            <div style="position:absolute;left:64.80px;top:522.10px" class="cls_005"><span class="cls_005">First Holder</span></div>
+            <div style="position:absolute;left:286.80px;top:529.25px" class="cls_008"><span id="fh_name1" runat="server" class="cls_008">@Model.FhName</span></div>
+            <div style="position:absolute;left:64.80px;top:534.10px" class="cls_005"><span class="cls_005">Second Holder</span></div>
+            <div style="position:absolute;left:286.80px;top:537.10px" class="cls_008"><span id="shName1" runat="server" class="cls_008">@Model.ShName</span></div>
+            <div style="position:absolute;left:64.80px;top:547.10px" class="cls_005"><span class="cls_005">Third Holder</span></div>
+            <div style="position:absolute;left:286.80px;top:547.10px" class="cls_008"><span id="Span1" runat="server" class="cls_008"></span></div>
+
+            <!---title panel-->
+            <div style="position:absolute;left:50px;top:570.55px;width:550px;text-align:center;" class="cls_007"><span class="cls_007">PASSPORT DETAILS</span></div>
+
+
+            <div style="position:absolute;left:64.80px;top:580.40px" class="cls_005"><span class="cls_005">Passport No.</span></div>
+            <div style="position:absolute;left:286.80px;top:580.40px" class="cls_008"><span id="passNum" runat="server" class="cls_008">@Model.passNum</span></div>
+            <div style="position:absolute;left:64.80px;top:592.40px" class="cls_005"><span class="cls_005">Passport Issue Date</span></div>
+            <div style="position:absolute;left:286.80px;top:592.40px" class="cls_008"><span id="passIDate" runat="server" class="cls_008">@Model.passIDate</span></div>
+            <div style="position:absolute;left:64.80px;top:604.40px" class="cls_005"><span class="cls_005">Passport Expiry Date</span></div>
+            <div style="position:absolute;left:286.80px;top:604.40px" class="cls_008"><span id="passExDate" runat="server" class="cls_008">@Model.passExDate</span></div>
+
+
+
+            <div style="position:absolute;left:64.80px;top:630.40px" class="cls_005"><span class="cls_005">Passport Issue Place</span></div>
+            <div style="position:absolute;left:286.80px;top:630.40px" class="cls_008"><span id="passIPlace" runat="server" class="cls_008">@Model.passIPlace</span></div>
+
+            <div style="position:absolute;left:64.80px;top:640.70px" class="cls_005"><span class="cls_005">Routing Number</span></div>
+            <div style="position:absolute;left:286.80px;top:640.70px" class="cls_008"><span id="routing" runat="server" class="cls_008">@Model.routing</span></div>
+
+            <div style="position:absolute;left:64.80px;top:650.50px" class="cls_005"><span class="cls_005">Bank Name</span></div>
+            <div style="position:absolute;left:286.80px;top:650.65px" class="cls_008"><span id="bName" runat="server" class="cls_008">@Model.bName</span></div>
+
+            <div style="position:absolute;left:64.80px;top:660.80px" class="cls_005"><span class="cls_005">Branch Name</span></div>
+            <div style="position:absolute;left:286.80px;top:660.70px" class="cls_008"><span id="bBranch" runat="server" class="cls_008">@Model.bBranch</span></div>
+
+            <div style="position:absolute;left:64.80px;top:672.10px" class="cls_005"><span class="cls_005">Bank A/C No.</span></div>
+            <div style="position:absolute;left:286.80px;top:672.25px" class="cls_008"><span id="bAccNum" runat="server" class="cls_008">@Model.bAccNum</span></div>
+
+
+            <div style="position:absolute;left:65.55px;top:683.40px" class="cls_005"><span class="cls_005">Bank Identifier Code (BIC)</span></div>
+            <div style="position:absolute;left:286.80px;top:683.40px" class="cls_008"><span id="Span5" runat="server" class="cls_008"></span></div>
+
+            <div style="position:absolute;left:64.80px;top:694.90px" class="cls_005">
+                <span class="cls_005">
+                    International Bank A/C No.
+                    (IBAN)
+                </span>
+            </div>
+
+            <div style="position:absolute;left:64.80px;top:708.20px" class="cls_005"><span class="cls_005">SWIFT Code</span></div>
+            <div style="position:absolute;left:286.80px;top:708px" class="cls_008"><span id="swift" runat="server" class="cls_008"></span></div>
+            <div style="position:absolute;left:64.80px;top:720px" class="cls_005"><span class="cls_005">Electronic Dividend</span></div>
+            <div style="position:absolute;left:286.80px;top:720px" class="cls_008"><span class="cls_008">Yes</span></div>
+            <div style="position:absolute;left:50.74px;top:744px;width:550px;text-align:center;" class="cls_007"><span class="cls_007">TAX DETAILS</span></div>
+            <div style="position:absolute;left:64.80px;top:751.55px" class="cls_005"><span class="cls_005">Tax Exemption</span></div>
+            <div style="position:absolute;left:286.80px;top:759" class="cls_008"><span class="cls_008">No</span></div>
+            <div style="position:absolute;left:64.80px;top:763.70px" class="cls_005"><span class="cls_005">Tax Identification No</span></div>
+            <div style="position:absolute;left:286.80px;top:763.70px" class="cls_008"><span id="tin" runat="server" class="cls_008">@Model.tin</span></div>
+            <div style="position:absolute;left:50.74px;top:790.00px;width:550px;text-align:center;" class="cls_007"><span class="cls_007">EXCHANGE DETAILS</span></div>
+            <div style="position:absolute;left:64.80px;top:800.85px" class="cls_005"><span class="cls_005">Exchange Name</span></div>
+            <div style="position:absolute;left:286.80px;top:805.00px" class="cls_008"><span class="cls_008"></span></div>
+            <div style="position:absolute;left:64.80px;top:812.85px" class="cls_005"><span class="cls_005">Trading ID</span></div>
+            <div style="position:absolute;left:286.80px;top:817.85px" class="cls_008"><span id="RCODE" runat="server" class="cls_008">XXXXX</span></div>
+
+            <div style="position:absolute;left:286.25px;top:900.55px"><span></span></div>
+        </div>
+
+    </div>
+</div>
+
+

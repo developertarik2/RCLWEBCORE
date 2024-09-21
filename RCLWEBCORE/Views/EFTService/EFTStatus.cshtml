@@ -1,0 +1,183 @@
+﻿@model RCLWEB.DATA.ViewModels.RequisitionVM
+@{
+    ViewData["Title"] = "EFTStatus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link rel="stylesheet" href="~/css/tables.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" asp-append-version="true" />
+</head>
+
+
+<h1 class="text-center text-primary">:: EFT Status ::</h1>
+
+<div style="margin-bottom:20px" class="my-3 mb-3">
+    <partial name="_ClientDetails" model="@Model.ClientDetails" />
+    @*<div class="loadingGif"></div>*@
+</div>
+
+<h3 class="text-center text-info">Requisition Submited From SMS or Web or App or Branch:</h3>
+
+@if (Model.RequisitionApprove.Any())
+{
+    <div class="overflow-auto">
+    <div class="table100 ver2 m-b-110 mt-5">
+        <table data-vertable="ver2">
+         <thead>
+                    <tr class="row100 head">
+                        <th style="width:300px" class="column100 column1">Date</th>
+                        <th class="column100 column1">Code</th>
+                        <th  class="column100 column1">Amount</th>
+                        <th class="column100 column1">Status</th>
+                        <th class="column100 column1">Registered</th>
+                        <th class="column100 column1">Deleted</th>
+                        <th  class="column100 column1">I/F</th>
+
+                    </tr>
+                </thead>
+       <tbody>
+                @foreach (var req in Model.RequisitionReceive)
+                {
+                        <tr class="row100 head">
+                            <td style="width:300px" class="column100 column1">@req.Dat</td>
+                            <td class="column100 column1">@req.RCode</td>
+                            <td  class="column100 column1">@req.Amount</td>
+                            <td class="column100 column1">
+                             @if ((req.Status.ToString() == "NO") && ((Convert.ToInt16(req.Flag1.ToString()) == 1) || 
+                             (Convert.ToInt16(req.Flag2.ToString()) == 0) || (Convert.ToInt16(req.Clr.ToString()) == 0)))
+                            {
+                                <span>Processing...</span>
+                            }
+                            @if ((req.Status.ToString() == "NO") && ((Convert.ToInt16(req.Flag1.ToString()) == 0) ||
+                           (Convert.ToInt16(req.Flag2.ToString()) == 1) || (Convert.ToInt16(req.Clr.ToString()) == 1)))
+                            {
+                                <span>Deny...</span>
+                            }
+                            @if ((req.Status.ToString() == "YES"))
+                            {
+                                <span>Received...</span>
+                                
+                            }
+                        </td>
+                            <td class="column100 column1">
+                               @if (Convert.ToInt16(req.Flag1.ToString()) == 1)
+                                {
+                                     <span>Yes</span>
+                                }
+                               @if (Convert.ToInt16(req.Flag1) == 0)
+                                {
+                                     <span>No</span>
+                                }
+                               @if (Convert.ToInt16(req.Flag1) == 11)
+                                {
+                                   <span>From Web</span>
+                                }
+                            </td>
+                            <td class="column100 column1">
+                               @if (Convert.ToInt16(req.Flag2) == 1)
+                                 {
+                                     <span>Yes</span>
+                                 }
+                               @if (Convert.ToInt16(req.Flag2) == 0)
+                                 {
+                                    <span>No</span>
+                                 }
+                                </td>
+                                <td class="column100 column1">
+                                    @if (Convert.ToInt16(req.Clr) == 1)
+                                    {
+                                         <span>Yes</span>
+                                    }
+                                    @if (Convert.ToInt16(req.Clr) == 0)
+                                     {
+                                         <span>No</span>
+                                     }
+                                </td>
+                            @*<td style="width:10px" class="column100 column1">@ipo.Allotment</td>*@
+                    </tr>
+                }
+        </tbody>
+
+    </table>
+    </div>
+</div>
+}
+
+else
+{
+    <h4 class="text-danger text-center">No data has been found</h4>
+}
+
+
+<h3 class="text-center text-info mt-2">Only Approved Requisitions ::</h3>
+
+@if (Model.RequisitionApprove.Any())
+{
+    <div class="overflow-auto">
+        <div class="table100 ver2 m-b-110 mt-5">
+            <table id="myTable" data-vertable="ver2">
+                <thead>
+                    <tr class="row100 head">
+                        <th  class="column100 column1">Date</th>
+                        <th class="column100 column1">Code</th>
+                        <th  class="column100 column1">Amount</th>
+                        <th class="column100 column1">Status</th>
+                        
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var req in Model.RequisitionApprove)
+                    {
+                        <tr class="row100 head">
+                            <td  class="column100 column1">@req.Date.ToString("dd-MMMM-yyyy")</td>
+                            <td class="column100 column1">@req.Code</td>
+                            <td  class="column100 column1">@req.Amount</td>
+                            <td class="column100 column1">
+                                @if ((req.Posted.ToString() == "True") && (req.Approved.ToString() == "True") && (req.Rejected.ToString() == "False"))
+                                {
+                                   <span>Approved</span>
+                                }
+                                else if ((req.Posted.ToString() == "True") && (req.Approved.ToString() == "False") && (req.Rejected.ToString() == "False"))
+                                  {
+                                      <span>Posted</span> 
+                                  }
+
+                                else if ((req.Posted.ToString() == "True") && (req.Approved.ToString() == "False") && (req.Rejected.ToString() == "True"))
+                                  {
+                                    <span>Rejected</span>
+                                }
+
+                                else
+                                   {
+                                         <span>Contact With Our Help Line</span>
+                                    
+                                   }
+                            </td>
+                            
+                            
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <h4 class="text-danger text-center">No data has been found</h4>
+}
+
+
+@*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
+@section scripts {
+   
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+       
+    </script>
+
+}

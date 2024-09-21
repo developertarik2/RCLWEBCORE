@@ -1,0 +1,327 @@
+﻿@model RCLWEB.DATA.ViewModels.ApplyIPoVM
+
+
+@{
+    ViewData["Title"] = "ApplyIPO";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link rel="stylesheet" href="~/css/loadingGifAjax.css" />
+</head>
+<h1 class="text-center text-primary">IPO is available currently @Model.IpoDetails.Count</h1>
+
+<p>Client Code: <b>@Model.Code</b></p>
+<p>Ledger Balance: <b>@Model.LedgerBalance</b></p>
+
+
+
+    @*<div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                Accordion Item #1
+            </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+        </div>
+    </div>*@
+
+
+@*<div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseOne">
+            Accordion Item #2
+        </button>
+    </h2>
+    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+    </div>
+</div>*@
+
+
+
+
+@if(Model.IpoDetails.Any())
+{
+    <div class="panel panel-default">
+        <div class="panel-body">
+         
+                        <h3>Company Name</h3>
+                 
+                    <div>
+                     @for(int i=0;i < Model.IpoDetails.Count;i++)
+                 
+                    {
+                       @* <h3 >
+                             @Model.IpoDetails[i].IPO_NAME
+                        </h3>*@
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id='@("id"+@i)'>
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#@("ids" + @i)" aria-expanded="false" aria-controls="#@("ids" + @i)">
+                                @Model.IpoDetails[i].IPO_NAME
+                            </button>
+                        </h2>
+                        <div id="@("ids" + @i)" class="accordion-collapse collapse" aria-labelledby="@("id"+@i)" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                               @* Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. 
+                                This is the first item's accordion body.*@
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <td>Lot Size</td>
+                                            <td>@Model.IpoDetails[i].LOT_SIZE</td>
+                                        </tr>
+                                         <tr>
+                                                <td>Price</td>
+                                                <td>@Model.IpoDetails[i].PRICE</td>
+                                            </tr>
+                                            <tr>
+                                                <td>START DATE</td>
+                                                <td class="text-success font-weight-bold">@Model.IpoDetails[i].START_DATE.ToString("dd-MMMM-yyyy")</td>
+                                            </tr>
+                                            <tr>
+                                                <td>END DATE</td>
+                                                <td class="text-danger">@Model.IpoDetails[i].END_DATE.ToString("dd-MMMM-yyyy")</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total PRICE</td>
+                                                <td>@(Model.IpoDetails[i].T_PRICE)</td>
+                                            </tr>
+                                            <tr>
+                                            <td>
+                                                @if ((Model.IpoDetails[i].END_DATE.AddDays(1)) < DateTime.Now)
+                                                {
+                                                    <span class="text-danger">IPO Subscription date is over</span>
+                                                    @*continue;*@
+                                                }
+                                                else if (Model.IpoDetails[i].START_DATE > DateTime.Now)
+                                                {
+                                                    <span class="text-danger">IPO Subscription is not started yet</span>
+                                                    @*continue;*@
+                                                }
+                                                else if (Model.IpoDetails[i].Applied)
+                                                {
+                                                    <span class="text-danger">You have already applied for this code @Model.Code</span>
+                                                }
+                                                else
+                                                {
+                                                    @if (Model.LedgerBalance < Model.IpoDetails[i].T_PRICE)
+                                                    {
+                                                       <br /> <button class="btn btn-primary" disabled>APPLY</button> <span class="text-danger">You are not eligible to apply*(Insufficient Balanace)</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button class="btn btn-primary" onclick="apply('@Model.IpoDetails[i].IPO_NAME')">APPLY</button>
+                                                    }
+                                                }
+
+
+                                            </td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                   @* <div class="accordion-item" id='@("id"+@i)'>
+   
+        <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#@("ids"+@i)" aria-expanded="false" aria-controls="flush-collapseOne">
+                @Model.IpoDetails[i].IPO_NAME
+            </button>
+        </h2>
+        <div id="@("ids"+i)" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#@("id"+i)">
+            <div class="accordion-body cont">
+             
+               <table class="table table-hover">
+                   <tbody>
+                        <tr>
+                                                <td>Lot Size</td>
+                                                <td>@Model.IpoDetails[i].LOT_SIZE</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Price</td>
+                                                <td>@Model.IpoDetails[i].PRICE</td>
+                                            </tr>
+                                            <tr>
+                                                <td>START DATE</td>
+                                                <td class="text-success font-weight-bold">@Model.IpoDetails[i].START_DATE.ToString("dd-MMMM-yyyy")</td>
+                                            </tr>
+                                            <tr>
+                                                <td>END DATE</td>
+                                                <td class="text-danger">@Model.IpoDetails[i].END_DATE.ToString("dd-MMMM-yyyy")</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total PRICE</td>
+                                                <td>@(Model.IpoDetails[i].T_PRICE)</td>
+                                            </tr>
+                   </tbody>
+                   <tfoot>
+                       <tr>
+                           <td>
+                               @if((Model.IpoDetails[i].END_DATE.AddDays(1)) < DateTime.Now)
+                               {
+                                   <span class="text-danger">IPO Subscription date is over</span>
+                                   continue;
+                               }
+                                @if(Model.IpoDetails[i].START_DATE > DateTime.Now)
+                               {
+                                   <span class="text-danger">IPO Subscription is not started yet</span>
+                                   continue;
+                               }
+                               @if(Model.IpoDetails[i].Applied)
+                               {
+                                   <span class="text-danger">You have already applied for this code @Model.Code</span>
+                               }
+                               else
+                               {
+                                   @if(Model.LedgerBalance < Model.IpoDetails[i].T_PRICE)
+                                    {
+                                      <button class="btn btn-primary" disabled >APPLY</button> <span class="text-danger">You are not eligible to apply*(Insufficient Balanace)</span>
+                                    }
+                                   else 
+                                    {
+                                     <button class="btn btn-primary" onclick="apply('@Model.IpoDetails[i].IPO_NAME')" >APPLY</button>
+                                    }
+                               }
+                               
+                               
+                           </td>
+                       </tr>
+                   </tfoot>
+               </table>
+                </div>
+        </div>
+    
+   
+</div>*@
+                       
+                      
+                    }
+                    </div>
+                 
+              
+                </div>
+    </div>
+}
+
+
+@section scripts{
+      @*  <script>
+        var res = {
+            loadingGif: $('<div />', { class: 'loadingGif' }),
+            cont: $('.cont')
+        }
+            function apply(ipo)
+            {
+                console.log(ipo);
+            swal({
+                title: "Are you sure you want to apply this IPO?",
+                text: "You will not be able to restore the content!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, apply it!",
+                closeOnConfirm: false
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    console.log("saaaaaa");
+                    //form.submit();
+                    postForm2(ipo);
+                } //form.submit();
+            });
+            }
+            $('#bt1').on('click',function(e){
+        e.preventDefault();
+        var form = $(this).parents('form');
+       
+    });
+        function postForm2(ipo) {
+            
+
+          
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("ApplyIpoClient", "IpoService")',
+                //data: JSON.stringify(obj),
+                data: { ipoName: ipo },
+                contentType: 'application/html; charset=utf-8',
+                beforeSend: function () {
+                    res.cont.append(res.loadingGif);
+                },
+                complete: function () {
+                    res.cont.find(res.loadingGif).remove();
+                },
+                //dataType: 'html'
+                // })
+                success: function (result) {
+                    //console.log(result)
+                    //toastr.error(result.message);
+                    // $('#part1').empty();
+                    setTimeout(function () {// wait for 5 secs(2)
+                        // $('#part1').html(result); // then reload the page.(3)
+                        res.cont.find(res.loadingGif).remove();
+                        if (!result.success){
+                            toastr.error(result.msg)
+                        }
+                    }, 100);
+                },
+                error: function (result) {
+                    console.log("err")
+                    toastr.error("Something went Wrong!!!");
+                }
+            });
+        }
+        </script>*@
+    <script>
+        var res = {
+            loadingGif: $('<div />', { class: 'loadingGif' }),
+            cont: $('.cont')
+        }
+        function apply(ipo) {
+            swal({
+                title: "Are you sure you want to apply this IPO?",
+                text: "You will not be able to restore the content!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, apply it!",
+                closeOnconfirm: true
+            }, function () {
+                $.ajax({
+                    type: 'DELETE',
+                    //url: url,
+                    url: '@Url.Action("ApplyIpoClient", "IpoService")',
+                    data: { ipoName: ipo },
+                     beforeSend: function () {
+                    res.cont.append(res.loadingGif);
+                },
+                complete: function () {
+                    res.cont.find(res.loadingGif).remove();
+                },
+                    success: function (data) {
+                        if (data.success) {
+                            toastr.success(data.msg);
+                            // dataTable.ajax.reload();
+                            setTimeout(function () {// wait for 5 secs(2)
+                                location.reload(); // then reload the page.(3)
+                            }, 3000);
+
+                        }
+                        if(!data.success)
+                        {
+                            toastr.error(data.msg);
+                        }
+                    },
+                    error: function (result) {
+                    console.log("err")
+                    toastr.error("Something went Wrong!!!");
+                }
+                });
+            });
+        }
+       
+    </script>
+
+
+}

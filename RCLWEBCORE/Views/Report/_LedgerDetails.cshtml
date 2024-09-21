@@ -1,0 +1,75 @@
+﻿@model List<RCLWEB.DATA.ViewModels.LedgerDetailsVM>
+
+@*<link rel="stylesheet" href="~/css/tables.css" asp-append-version="true" />*@
+<head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" asp-append-version="true" />
+   @* <link rel="stylesheet" href="~/css/tables.css" asp-append-version="true" />*@
+</head>
+ @if (Model.Any())
+{
+    <h3 class="text-center mt-3">
+        Transaction Period <span class="text-primary">@Convert.ToDateTime(ViewData["from"]).ToString("dd-MMMM-yyy")</span>
+        to <span class="text-primary">@Convert.ToDateTime(ViewData["to"]).ToString("dd-MMMM-yyy")</span>
+    </h3>
+}
+
+<div class="overflow-auto mx-4 mt-3 pb-5">
+    @if (Model.Any())
+    {
+        <div class="overflow-auto">
+            <table id="myTable" class="table table-hover " >
+                <thead class="table-info">
+                    <tr class="row100 head">
+                        <th style="width:15%">Date</th>
+                        <th>Type</th>
+                        <th>Instrument</th>
+                        <th>Quantity</th>
+                        <th>Rate</th>
+                        <th>Debit</th>
+                        <th>Credit</th>
+                        <th>Comission</th>
+                        <th>Balance</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ledger in Model)
+                    {
+
+                        <tr>
+                           
+                            <td>@Convert.ToDateTime(ledger.Tdate).ToString("dd-MMMM-yyyy")</td>
+                            <td>@ledger.Type</td>
+                            <td>@ledger.Narr</td>
+                            <td>@ledger.Quantity</td>
+                            <td>@Math.Round(Convert.ToDecimal(ledger.Rate),2)</td>
+                            <td>@ledger.Debit.GetValueOrDefault().ToString("#,##0.00")</td>
+                            <td>@ledger.Credit.GetValueOrDefault().ToString("#,##0.00")</td>
+                            <td>@ledger.Commission</td>
+                            <td>@Math.Round(Convert.ToDecimal(ledger.TotalBalance),2).ToString("#,##0.00")</td>
+                          
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    }
+    else
+    {
+        <h1 class="text-danger text-center">No data has been found</h1>
+    }
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+
+</script>
+@section scripts {
+  
+    
+
+}

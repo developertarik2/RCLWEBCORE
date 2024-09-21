@@ -1,0 +1,60 @@
+﻿@*@model RCLWEB.DATA.ViewModels.ClientCodeListVM*@
+@model string 
+@{
+    //ViewData["Title"] = "Footer";
+    Layout = null;
+}
+<!DOCTYPE html>
+<head>
+    <style>
+        .Row {
+            display: table;
+            width: 100%; /*Optional*/
+            table-layout: fixed; /*Optional*/
+            /*border-spacing: 10px;*/ /*Optional*/
+        }
+
+        .Column {
+            display: table-cell;
+            /*background-color: red;*/ /*Optional*/
+        }
+    </style>
+    <script>
+        var pdfInfo = {};
+        var x = document.location.search.substring(1).split('&');
+        for (var i in x) { var z = x[i].split('=', 2); pdfInfo[z[0]] = unescape(z[1]); }
+        function getPdfInfo() {
+            var page = pdfInfo.page || 1;
+            var pageCount = pdfInfo.topage || 1;
+            document.getElementById('pdfkit_page_current').textContent = page;
+            document.getElementById('pdfkit_page_count').textContent = pageCount;
+        }
+        window.onload = function () {
+            getPdfInfo();
+        };
+    </script>
+</head>
+<body>
+    <div style="text-align:center;font-size:12px;margin-bottom:-10px;margin-top:10px; letter-spacing: 5px;">
+       Errors/ Ommission if any, please refer for correction. This is a computer generated statement. No signature is required.
+    </div>
+    <div style="border-top:1px solid;margin-top:10px">
+        <div class="Row">
+            <div style="font-size:13px;letter-spacing: 1px;" class="Column">Print Time: @Model</div>
+            <div class="Column">
+                <span style="margin-left:0px;font-size:11px;">Page [<span id="pdfkit_page_current"></span> of <span id="pdfkit_page_count"></span>]</span>
+                </div>
+            <div class="Column">
+                @*Page [<span id="pdfkit_page_current"></span> of <span id="pdfkit_page_count"></span>]*@
+               
+             
+               @* <span style="margin-left:50px; font-size:12px;margin-right:-50px">Powered by RCL SOFTWARE Dept.</span>*@
+                <img style="float:right; margin-bottom:-10px;height:20px;margin-right:0px" src="~/images/rcl-logo-small2.png">
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<!---<h3 style="text-align: center; margin-bottom: -10px">Footer</h3>
+<img style="margin-bottom:-30px;margin-top:-20px" src="~/images/fmLogo2.jpg">-->

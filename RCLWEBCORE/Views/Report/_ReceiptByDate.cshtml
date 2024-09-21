@@ -1,0 +1,45 @@
+﻿@model List<RCLWEB.DATA.ViewModels.ReceiptDetails>
+
+@*<link rel="stylesheet" href="~/css/tables.css" asp-append-version="true" />*@
+
+
+<div class="overflow-auto mx-4 mt-3">
+    @if (Model.Any())
+    {
+        <div class="overflow-auto">
+            <table class="table">
+                <thead>
+                    <tr class="row100 head">
+                        <th class="column100 column1">Date</th>
+                        <th class="column100 column1">Voucher No</th>
+                        <th class="column100 column1">Deposit</th>
+                        <th class="column100 column1">Withdraw</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var receipt in Model)
+                    {
+
+                        <tr class="row100">
+                            @* <td class="column100 column1">@(n++)</td>*@
+                            <td class="column100 column1">@receipt.Date.GetValueOrDefault().ToString("dd/MM/yyyy")</td>
+                            <td class="column100 column1">@receipt.VoucherNo</td>
+                            <td class="column100 column1">@receipt.Deposit</td>
+                            <td class="column100 column1">@receipt.Withdraw</td>
+                           
+                     
+                        </tr>
+                    }
+                </tbody>
+                
+            </table>
+
+        </div>
+        
+    }
+    else
+    {
+        <h1 class="text-danger text-center">No data has been found</h1>
+    }
+</div>

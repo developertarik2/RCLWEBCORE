@@ -1,0 +1,356 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    @{
+        var id = Context.Request.Query["code"];
+    }
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RCLWEBCORE</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/sideNavBar.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/RCLWEBCORE.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+      <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+</head>
+<body>
+     <div style="background:#2596be" class="sidebar close">
+    <div class="logo-details">
+      @*<i class='bx bxl-c-plus-plus'></i>*@
+      @*<i id="cc" class="fa-solid fa-r"></i>*@
+      <i id="cc" class="fa-solid fa-bars"></i>
+      <span class="logo_name">RCL </span> <span class="ml-5"></span>
+      @*<i id="cr" style=" margin-left:55px;position:absolute" class="fa-solid fa-xmark"></i>*@
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="#">
+          @*<i class='bx bx-grid-alt' ></i>*@
+          <i class="fa-solid fa-table-cells-large"></i>
+          <span class="link_name">Dashboard</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">Dashboard</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="#">
+           @* <i class='bx bx-collection' ></i>*@
+           <i class="fa-solid fa-building-columns"></i>
+            <span class="link_name">CDBL</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">CDBL</a></li>
+          <li><a asp-action="Info" asp-controller="CDBL">CDBL Info</a></li>
+          <li><a asp-action="CDBLChargeReport" asp-controller="CDBL">CDBL Charge Payment Report</a></li>
+          @*<li><a href="#">PHP & MySQL</a></li>*@
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="#">
+           @* <i class='bx bx-book-alt' ></i>*@
+           <i class="fa-solid fa-money-bill-trend-up"></i>
+            <span class="link_name">Online Deposit</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Online Deposit</a></li>
+          <li><a asp-controller="Payment" asp-action="PaymentSSL" >Deposit in Your Account</a></li>
+         @* <li><a href="#">Login Form</a></li>
+          <li><a href="#">Card Design</a></li>*@
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="#">
+           @* <i class='bx bx-book-alt' ></i>*@
+        <i class="fa-solid fa-file"></i>
+            <span class="link_name">Reports</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Reports</a></li>
+          <li><a asp-controller="Report" asp-action="Portfolio" >Portfolio</a></li>
+          <li><a asp-controller="Report" asp-action="LivePortfolio" >Live Portfolio</a></li>
+          <li><a asp-controller="Report" asp-action="Ledger" >Client Ledger</a></li>
+          <li><a asp-controller="Report" asp-action="Confirmation" >Client Confirmation</a></li>
+          <li><a asp-controller="Report" asp-action="Receipt" >Receipt/Payment</a></li>
+          <li><a asp-controller="Report" asp-action="Tax" >Tax Report</a></li>
+          <li><a asp-controller="Report" asp-action="PortfolioDetails" >Portfolio Details(P/L)</a></li>
+        </ul>
+      </li>
+       <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bx-book-alt' ></i>
+            <span class="link_name">IPO Services</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">IPO Services</a></li>
+          <li><a asp-controller="IpoService" asp-action="ApplyIPO">Apply Online IPO</a></li>
+          <li><a asp-controller="IpoService" asp-action="IpoGenieReg" >IPO Genie Registration</a></li>
+          <li><a asp-controller="IpoService" asp-action="AppliedIPO" >Applied IPO Information</a></li>
+          @*<li><a href="#">Client Confirmation</a></li>
+          <li><a href="#">Receipt/Payment</a></li>
+          <li><a href="#">Tax Report</a></li>
+          <li><a href="#">Portfolio Details(P/L)</a></li>*@
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bx-book-alt' ></i>
+            <span class="link_name">EFT Services</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">EFT Services</a></li>
+                    <li><a asp-controller="EFTService" asp-action="EftSubmit" >Submit Requisition</a></li>
+          <li><a asp-controller="EFTService" asp-action="EFTStatus" >EFT Status</a></li>
+        
+        </ul>
+      </li>
+       <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bx-book-alt' ></i>
+            <span class="link_name">Trading Services</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Trading Services</a></li>
+          <li><a href="#">Internet Trading Help</a></li>
+          @*<li><a href="#">EFT Status</a></li>*@
+        
+        </ul>
+      </li>
+       <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bx-book-alt' ></i>
+            <span class="link_name">Others</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Others</a></li>
+          <li><a href="#">Submit A Query</a></li>
+        
+        
+        </ul>
+      </li>
+     @* <li>
+        <a href="#">
+          <i class='bx bx-pie-chart-alt-2' ></i>
+          <span class="link_name">Analytics</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">Analytics</a></li>
+        </ul>
+      </li>*@
+      
+      @*<li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bx-plug' ></i>
+            <span class="link_name">Plugins</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Plugins</a></li>
+          <li><a href="#">UI Face</a></li>
+          <li><a href="#">Pigments</a></li>
+          <li><a href="#">Box Icons</a></li>
+        </ul>
+      </li>*@
+     @* <li>
+        <a href="#">
+          <i class='bx bx-compass' ></i>
+          <span class="link_name">Explore</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">Explore</a></li>
+        </ul>
+      </li>*@
+     @* <li>
+        <a href="#">
+          <i class='bx bx-history'></i>
+          <span class="link_name">History</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">History</a></li>
+        </ul>
+      </li>*@
+     @* <li>
+        <a href="#">
+          <i class='bx bx-cog' ></i>
+          <span class="link_name">Setting</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">Setting</a></li>
+        </ul>
+      </li>*@
+      <li>
+    <!--<div class="profile-details">
+      <div class="profile-content">
+        <img src="image/profile.jpg" alt="profileImg">
+      </div>
+      <div class="name-job">
+        <div class="profile_name">Prem Shahi</div>
+        <div class="job">Web Desginer</div>
+      </div>
+      <i class='bx bx-log-out' ></i>
+    </div>-->
+  </li>
+</ul>
+  </div>
+
+
+   @* <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">RCLWEBCORE</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>*@
+    <section id="hh" class="home-section overflow-auto body-trimmed">
+         <nav  class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-danger border-bottom box-shadow mb-3 ">
+            <div class="container-fluid">
+                <span class="mt-1 mr-1" style="cursor:pointer; font-size:35px;margin-left:-5px"> @*<i class="fa-solid fa-bars"></i>*@@*<i class='bx bx-menu' ></i>*@</span> 
+                <a class="navbar-brand ms-2" asp-area="" asp-controller="Home" asp-action="Index">RCL</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                     <ul class="navbar-nav mb-2 mb-lg-0">
+                      <li class="nav-item">
+                            @if(User.Identity.IsAuthenticated && User.IsInRole("Client"))
+                            {
+                                <a class="btn btn-warning" asp-controller="Account" asp-action="Logout" area-current="page" >
+                           <i class="fas fa-sign-out-alt"></i> Logout</a>
+                            }
+                            else
+                            {
+                                <a class="nav-link active" area-current="page" href="#">
+                            Login
+                        </a>
+                        }
+                      </li>
+                     </ul>
+                    </div>
+            </div>
+        </nav>
+    <div class="home-content">
+      
+     @* <span class="text">Drop Down Sidebar</span>*@
+      <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    @*<footer style="position:inherit" class="border-top  footer text-muted">
+        <div class="container text-center">
+            &copy; 2022 - ROYAL CAPITAL - 
+        </div>
+    </footer>*@
+    </div>
+    @*<footer class="border-top  footer text-muted">
+        <div class="container text-center">
+            &copy; 2022 - ROYAL CAPITAL - 
+        </div>
+    </footer>*@
+  </section>
+    @*<div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>*@
+
+    @*<footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - RCLWEBCORE - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+   
+      <script src="https://kit.fontawesome.com/add957eb6e.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
+    <script src="~/js/sideNav.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+  @*  <script>
+        let arrow = document.querySelectorAll(".arrow");
+for (var i = 0; i < arrow.length; i++) {
+  arrow[i].addEventListener("click", (e)=>{
+ let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+ arrowParent.classList.toggle("showMenu");
+  });
+}
+
+let sidebar = document.querySelector(".sidebar");
+let sidebarBtn = document.querySelector(".bx-menu");
+console.log(sidebarBtn);
+sidebarBtn.addEventListener("click", ()=>{
+  sidebar.classList.toggle("close");
+});
+
+    </script>*@
+    <script>
+        //$("#cc").click(function () {
+        //    let sidebar = document.querySelector(".sidebar");
+        //    sidebar.classList.toggle("close");
+        //    console.log("ss")
+        //    //sidebar.classList.toggle("close");
+        //});
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script type="text/javascript">
+        $(document).ready(function () {
+           
+        })
+    </script>
+</body>
+</html>

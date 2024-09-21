@@ -1,0 +1,124 @@
+﻿@model RCLWEB.DATA.ViewModels.PlDetailVM
+@{
+    ViewData["Title"] = "PortfolioDetails";
+}
+<head>
+    <link rel="stylesheet" href="~/css/loadingGifAjax.css" />
+
+</head>
+<h1 class="text-center text-primary">:: Client Portfolio Details(P/L) ::</h1>
+<h2 class="text-center text-info my-3">To Whom It May Concern</h2>
+<div style="margin-bottom:20px" class="my-3 mb-3">
+    <partial name="_ClientDetails" model="@Model.ClientDetails" />
+    @*<div class="loadingGif"></div>*@
+</div>
+<form target="_blank" asp-action="PortfolioDetailsPdf" method="post">
+<div class="mt-3">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card p-4 shadow-lg">
+                <label>From</label>
+                <input class="form-control" asp-for=FromDate type="date" id="fromDate" />
+                <input type="hidden" asp-for="@Model.Code" id="code" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-4 shadow-lg">
+                <label>To</label>
+                <input class="form-control" asp-for="ToDate" type="date" id="toDate" />
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-4 shadow-lg">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-primary" id="btnSubmit">VIEW</button>
+                    </div>
+
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-info" id="btnPrint">PRINT</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<div id="part1" class="cont">
+    <partial name="_PlDetailsByDate" model="@Model.PlDetailsPartial" />
+    @*<div class="loadingGif"></div>*@
+</div>
+
+@section Scripts{
+    <script>
+        var res = {
+            loadingGif: $('<div />', { class: 'loadingGif' }),
+            cont: $('.cont')
+        }
+        $("#btnSubmit").click(function () {
+            var from = $('#fromDate').val().trim();
+            var to = $('#toDate').val().trim();
+            if ($("#fromDate").val().trim().length == 0) {
+                toastr.error("From date can't be empty");
+                return false;
+            }
+            if ($("#toDate").val().trim().length == 0) {
+                toastr.error("To date can't be empty");
+                return false;
+            }
+            if (from == to) {
+                toastr.error("From date can't be same as To date");
+                return false;
+            }
+            if (from > to) {
+                //toastr.error("Something went Wrong!!!");
+                toastr.error("From date can't be greater than To date");
+                return false;
+            }
+            postForm();
+        })
+
+        function postForm() {
+            var from = $('#fromDate').val().trim();
+            var to = $('#toDate').val().trim();
+
+            var code = $('#code').val().trim();
+            //console.log(obj)
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("PlDetailsByDate", "Report")',
+                //data: JSON.stringify(obj),
+                data: { fromDate: from, code: code, toDate: to },
+                contentType: 'application/html; charset=utf-8',
+                beforeSend: function () {
+                    res.cont.append(res.loadingGif);
+                },
+                complete: function () {
+                    res.cont.find(res.loadingGif).remove();
+                },
+                //dataType: 'html'
+                // })
+                success: function (result) {
+                    //console.log(result)
+                    //toastr.error(result.message);
+                    // $('#part1').empty();
+                    setTimeout(function () {// wait for 5 secs(2)
+                        $('#part1').html(result); // then reload the page.(3)
+                        res.cont.find(res.loadingGif).remove();
+                    }, 100);
+                },
+                error: function (result) {
+                    console.log(result.msg)
+                    toastr.error("Something went Wrong!!!");
+                    res.cont.find(res.loadingGif).remove();
+                }
+            });
+        }
+    </script>
+}
+
+
+
+

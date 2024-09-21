@@ -1,0 +1,167 @@
+﻿@model RCLWEB.DATA.ViewModels.ClientPortfolioVM
+
+@{
+    ViewData["Title"] = "Portfolio";
+    int n = 1;
+
+}
+<head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" asp-append-version="true" />
+</head>
+<h1 class="text-center text-primary mt-2 mb-2">:: Client Portfolio ::</h1>
+
+<div class="float-right">
+    <a target="_blank" class="btn btn-primary" asp-action="PortfolioPDF">Print</a>
+</div>
+<div style="margin-bottom:20px" class="my-3 mb-3">
+    <partial name="_ClientDetails" model="@Model.ClientDetails" />
+    @*<div class="loadingGif"></div>*@
+</div>
+
+
+
+<div class="overflow-auto mx-4 card-body shadow-lg">
+    @if(Model.PortfolioCompanyVMs.Any())
+    {
+        <table id="myTable" style="font-size:15px" class="table table-bordered table-hover">
+            <thead class="table-primary">
+             <tr>
+                 <th>SL#</th>
+                 <th>Instrument</th>
+                 <th>Total</th>
+                 <th>Free</th>
+                 <th>Lock</th>
+                 <th>Avg Price</th>
+                 <th>Total Cost</th>
+                 <th>Market Rate</th>
+                 <th>Market Value</th>
+                 <th>Gain/Loss</th>
+             </tr>
+            </thead>
+            <tbody>
+                @foreach(var portfolioCompany in Model.PortfolioCompanyVMs)
+                {
+                    
+                    <tr>
+                        <td>@(n++)</td>
+                        <td>@portfolioCompany.Firmsnm1</td>
+                        <td>@portfolioCompany.Quantity</td>
+                         <td>@portfolioCompany.Slbqty</td>
+                        <td> @if(portfolioCompany.Pldqty !=0)
+                            {
+                                @portfolioCompany.Pldqty
+                            }
+                        </td>
+                         <td>@Math.Round(portfolioCompany.Rate.GetValueOrDefault(),2)</td>
+                         <td>@portfolioCompany.Amount.GetValueOrDefault().ToString("#,##0.00")</td>
+                         <td>@portfolioCompany.Mktrt.GetValueOrDefault().ToString("#,##0.00")</td>
+                         <td>@portfolioCompany.Mktamt.GetValueOrDefault().ToString("#,##0.00")</td>
+                         <td>@((Convert.ToDouble(portfolioCompany.Mktamt.GetValueOrDefault()) - Convert.ToDouble(portfolioCompany.Amount.GetValueOrDefault())).
+                             ToString("#,##0.00"))</td>
+                        @*<td class="text-center">
+                            <a class="btn btn-info" asp-action="Index" asp-controller="Home" asp-route-code="@code.RCode">
+                               <i class="fas fa-file"></i> VIEW
+                            </a>
+                        </td>*@
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h1 class="text-danger text-center">No data has been found</h1>
+    }
+</div>
+
+<div>
+    <hr />
+    <h3 class="text-center mt-3">Pending IPO Applications</h3>
+    @if(Model.PendingShares.Any())
+    {
+        <table id="myTable" style="font-size:15px" class="table table-bordered table-hover">
+            <thead class="table-primary">
+                <tr>
+                    <th>SL#</th>
+                    <th>IPO NAME</th>
+                    <th>IPO AMOUNT</th>
+                    <th>Applied Date</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ipo in Model.PendingShares)
+                {
+
+                    <tr>
+                        <td>@(n++)</td>
+                        <td>@ipo.IPO_NAME</td>
+                        <td>@ipo.IPO_AMOUNT</td>
+                        <td>@ipo.AppliedDate</td>
+                        
+                        
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h4 class="text-danger text-center">No data has been found</h4>
+    }
+    <hr />
+</div>
+
+<div class="overflow-auto mt-3">
+    <table class="table">
+        <tbody>
+            <tr class="bg-info">
+                <td>Total Buy Cost :</td>
+                <td>@Model.TotalBuyCost.GetValueOrDefault().ToString("#,##0.00")</td>
+                <td>Market Value:</td>
+                <td>@Model.MarketVal.GetValueOrDefault().ToString("#,##0.00")</td>
+            </tr>
+            <tr class="bg-primary">
+                <td>Matured Balance:</td>
+                <td>@Model.MaturedBal.GetValueOrDefault().ToString("#,##0.00")</td>
+                <td>Equity(All Instrument):</td>
+                <td>@Model.EquityBal.GetValueOrDefault().ToString("#,##0.00")</td>
+            </tr>
+            <tr class="bg-warning">
+                <td>Sale Reciveable :</td> <td>@Model.SaleRec.GetValueOrDefault().ToString("#,##0.00")</td>
+            </tr>
+            <tr class="bg-secondary">
+                <td>Ledger Balance :</td>
+                <td>@Model.LedgerBal.GetValueOrDefault().ToString("#,##0.00")</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="bg-warning">Realised Gain/Loss :</td>
+                <td class="bg-warning">@Model.RglBal.GetValueOrDefault().ToString("#,##0.00")</td>
+            </tr>
+            <tr>
+                <td class="bg-secondary">Accrued Charges :</td>
+                <td class="bg-secondary">@Model.AccruedBal.GetValueOrDefault().ToString("#,##0.00")</td>
+                <td class="bg-light">Un Realised Capital gain/loss :</td>
+                <td class="bg-light">@Model.UnrealiseBal.GetValueOrDefault().ToString("#,##0.00")</td>
+            </tr>
+            <tr>
+                <td class="bg-info">Charges & Fees :</td> <td class="bg-info">@Model.ChargeFee</td>
+                <td class=" bg-danger"><b>Total Capital Gain/Loss:</b> </td>
+                <td class="bg-danger">@Model.TotalCapital.GetValueOrDefault().ToString("#,##0.00")</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@section scripts {
+
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+
+    </script>
+
+}

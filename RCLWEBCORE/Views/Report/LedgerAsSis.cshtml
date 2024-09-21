@@ -1,0 +1,104 @@
+﻿@model RCLWEB.DATA.ViewModels.LedgerVM
+
+
+@{
+    ViewData["Title"] = "PortfolioPDF";
+    Layout = "~/Views/Shared/_ReportAsSisLayout.cshtml";
+    int n = 1;
+}
+
+@*<h1 style="text-align:center">Portfolio</h1>*@
+@*<div style="text-align:center">
+    <h1 style="font-size:40px">Portfolio</h1><hr />
+</div>*@
+@*<h3 style="text-align:center">
+    Ledger : from <span style="color:darkblue">@Model.FromDate.ToString("dd MMMM, yyyy")</span>
+    to <span style="color:darkblue">@Model.ToDate.ToString("dd MMMM, yyyy")</span>
+</h3>
+<hr />
+<div>
+    <table>
+        <tbody>
+            <tr>
+                <td>Name:  @Model.ClientDetails.Aname</td>
+                <td style="padding-left:25px">
+                    @if (Model.ClientDetails.aatype != "INDIVIDUAL")
+                    {
+                        <span>:Joint holder: @Model.ClientDetails.jname1</span>
+                    }
+                </td>
+
+            </tr>
+            <tr>
+                <td>Code: @Model.ClientDetails.Acode</td>
+                <td style="padding-left:25px">BOID: @Model.ClientDetails.Boid</td>
+            </tr>
+            <tr>
+                <td colspan="2">Address: @Model.ClientDetails.Address</td>
+            </tr>
+        </tbody>
+    </table>
+</div>*@
+
+<div style="margin-top:10px">
+    <table id="customers" border="0" cellspacing="0" cellpadding="0">
+        <thead class="pri">
+            <tr class="desc bl">
+                <th>Voucher</th>
+                <th width="13%">Date</th>
+                <th colspan="2">Particulars</th>
+                @*<th>Instrument</th>*@
+                <th>Quantity</th>
+                <th>Rate</th>
+                <th>Debit</th>
+                <th>Credit</th>
+                <th>Comission</th>
+                <th width="13%">Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ledger in Model.LedgerDetails)
+            {
+                <tr style="color:black" class="ct">
+                    <td>@ledger.Vno</td>
+                    <td class="lt">@Convert.ToDateTime(ledger.Tdate).ToString("dd-MMM-yyyy")</td>
+                    <td class="lt">
+                        @if (ledger.Type == "Buy")
+                        {
+                            <span style="color:forestgreen"> @ledger.Type</span>
+                        }
+                        else if (ledger.Type == "Sale")
+                        {
+                            <span style="color:mediumpurple"> @ledger.Type</span>
+                        }
+                        else
+                        {
+                            <span> @ledger.Type</span>
+                        }
+                    </td>
+                    <td class="lt">@ledger.Narr</td>
+                    <td class="rt">@ledger.Quantity</td>
+                    <td class="rt">@Math.Round(Convert.ToDecimal(ledger.Rate),2)</td>
+                    <td class="rt">@ledger.Debit.GetValueOrDefault().ToString("#,##0.00")</td>
+                    <td class="rt">@ledger.Credit.GetValueOrDefault().ToString("#,##0.00")</td>
+                    <td class="rt">@Math.Round(ledger.Commission.GetValueOrDefault(),2).ToString("#,##0.00")</td>
+                    <td class="rt">
+                        @if (ledger.TotalBalance < 0)
+                        {
+                            <span style="color:red"> @Math.Round(Convert.ToDecimal(ledger.TotalBalance),2).ToString("#,##0.00")</span>
+                        }
+                        else
+                        {
+                            <span> @Math.Round(Convert.ToDecimal(ledger.TotalBalance),2).ToString("#,##0.00")</span>
+                        }
+
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+

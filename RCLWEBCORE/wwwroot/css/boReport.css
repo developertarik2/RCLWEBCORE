@@ -1,0 +1,41 @@
+﻿body {
+    position: relative;
+    /*width: 21cm;
+         /* height: 29.7cm; */
+    size: 7in 9.25in;
+    margin: 0 auto;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #555555;
+    background: #FFFFFF;
+    /*font-family: Arial, sans-serif;*/
+    /*font-size: 11px;*/
+    font-family: SourceSansPro;
+    background-image: url('../images/royal.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+.dd {
+    background-image: url('../images/royal.png');
+    height: 400px;
+    width: 600px;
+}
+
+.cls_003 {
+    font-family: 'Times New Roman';
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-style: normal;
+    padding: 5px;
+}
+
+.cls_004 {
+    font-family: Courier New, serif;
+    font-size: 20 px;
+    color: rgb(0, 0, 0);
+    font-weight: bolder;
+    font-style: normal;
+    text-decoration: none
+}

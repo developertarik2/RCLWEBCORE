@@ -1,0 +1,306 @@
+﻿@model RCLWEB.DATA.ViewModels.PlDetailVM
+@{
+    ViewData["Title"] = "PortfolioDetailsPDF";
+    Layout = "~/Views/Shared/_ReportLayout.cshtml";
+    int n = 0;
+}
+
+<h3 style="text-align:center">Transaction Period: <b>@Model.FromDate.ToString("dd-MMMM-yyyy") To @Model.ToDate.ToString("dd-MMMM-yyyy")</b> </h3>
+<hr />
+<h1 style="text-align:center">To Whom It May Concern</h1>
+<hr />
+<div class="batchDetails" style="margin-left:10px;margin-bottom:15px">
+    <div style="float: left;width: 450px; ">
+        <div style="height:30px"><span style="color:grey">Account Holder Name :</span> <b> @Model.ClientDetails.Aname</b></div>
+        <div style="height:30px"><span style="color:grey"> Account No:</span> <b> @Model.ClientDetails.Acode</b></div>
+        <div style="height:30px"><span style="color:grey"> Account Type:</span> <b> @Model.ClientDetails.aatype</b></div>
+        <div style="height:30px"><span style="color:grey">BOID :</span><b> @Model.ClientDetails.Boid</b></div>
+        @*<p>Account No: <b>FM855</b></p>
+        <p>BOID :1201590035822238</p>*@
+    </div>
+    <div style="float: left; width: 450px;">
+        @if (Model.ClientDetails.aatype != "INDIVIDUAL")
+        {
+            <div style="height:30px"><span style="color:grey">Joint Holder Name :</span> <b>@Model.ClientDetails.jname1</b>  </div>
+        }
+        <div style="height:30px"><span style="color:grey">Father's Name :</span> <b>@Model.ClientDetails.Faname</b>  </div>
+        <div style="height:30px"><span style="color:grey">Mother's Name :</span> <b>@Model.ClientDetails.moname</b>  </div>
+        <div style="height:30px"><span style="color:grey">Address :</span> <b>@Model.ClientDetails.Address</b>  </div>
+
+    </div>
+    @*<div style="float: left; width: 300px;">
+    <div style="height:40px">LOTTO CONF.      :  </div>
+    <p>LOTTO BULK : </p>
+    </div>*@
+    <br style="clear: left;" />
+</div>
+
+@if (Model.PlDetailsPartial.PlDetailList != null)
+{
+
+
+        <div style="margin-top:30px">
+            <table id="customers" border="0" cellspacing="0" cellpadding="0">
+            <thead class="botg">
+                <tr>
+                        <th>SL#</th>
+                        <th>Instrument</th>
+                        <th>Bought Quantity</th>
+                        <th>Bought Cost</th>
+                        <th>Sold Quantity</th>
+                        <th>Sold Cost</th>
+                        <th>Realised Gain/Loss</th>
+                        <th>Balance Quantity</th>
+                        <th>Balance Rate</th>
+                        <th>Balance Amount</th>
+                        <th>Market Rate</th>
+                        <th>Market Amount</th>
+                        <th>Unrealised Gain</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var pl in Model.PlDetailsPartial.PlDetailList)
+                {
+                    n++;
+                            <tr>
+                                <td>@n</td>
+                                <td>@pl.Firmsnm1</td>
+                                <td>@pl.BuyQnty</td>
+                                <td>@Convert.ToDecimal(pl.BuyAmount).ToString("#,##0.00")</td>
+                                <td>@pl.SaleQnt</td>
+                                <td>@Convert.ToDecimal(pl.SaleAmnt).ToString("#,##0.00")</td>
+                                <td>@Convert.ToDecimal(pl.RG).ToString("#,##0.00")</td>
+                                <td>@pl.BQ</td>
+                                <td>@pl.BR</td>
+                                <td>@Convert.ToDecimal(pl.BA).ToString("#,##0.00")</td>
+                                <td>@pl.TMR</td>
+                                <td>@Convert.ToDecimal(pl.TMA).ToString("#,##0.00")</td>
+                                <td>@Convert.ToDecimal(pl.TUG).ToString("#,##0.00")</td>
+                        </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4">
+                        <div style="float:right;font-weight:bold">
+                            @Model.PlDetailsPartial.BoughtCost.ToString("#,##0.00")
+                        </div>
+
+                        </td>
+                    <td colspan="2">
+                        <div style="float:right;font-weight:bold">
+                            @Model.PlDetailsPartial.SoldCost.ToString("#,##0.00")
+                        </div>
+
+                        </td>
+                    <td>
+                        <div style="float:right;font-weight:bold">
+                            @Model.PlDetailsPartial.RealisedCapitalGainLoss.GetValueOrDefault().ToString("#,##0.00")
+                        </div>
+
+                        </td>
+                    <td colspan="3">
+                         <div style="float:right;font-weight:bold">
+                            @Model.PlDetailsPartial.BalanceAmnt.ToString("#,##0.00")
+                        </div>
+
+                        </td>
+                    <td colspan="2">
+                            <div style="float:right;font-weight:bold">
+                            @Model.PlDetailsPartial.MarketAmnt.ToString("#,##0.00")
+                            </div>
+                        </td>
+                        <td colspan="1">
+                            <div style="float:right;font-weight:bold">
+                            @Model.PlDetailsPartial.UnrealisedGain.ToString("#,##0.00")
+                            </div>
+                        </td>
+                </tr>
+            </tfoot>
+            </table>
+        </div>
+}
+else
+{
+        <h3 class="text-danger text-center">No data found</h3>
+}
+<hr />
+<h2 style="text-align:center">IPL Shares</h2>
+@if (Model.PlDetailsPartial.IPOShareLists.Any())
+{
+                <div>
+                    <table id="customers" border="0" cellspacing="0" cellpadding="0">
+                        <thead>
+                            <tr>
+                                <th>SL#</th>
+                                <th>Instrument</th>
+                                <th>Quantity</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                @foreach (var ipo in Model.PlDetailsPartial.IPOShareLists)
+                {
+                                    <tr>
+                                        <td>@ipo.Firmsnm1</td>
+                                        <td>@ipo.Quantity</td>
+                                        <td>@ipo.Amount</td>
+                                        <td>@ipo.Dat</td>
+                                    </tr>
+                }
+                        </tbody>
+                    </table>
+        </div>
+}
+else
+{
+        <h3 style="text-align:center">No Data Found</h3>
+}
+<hr />
+<h2 style="text-align:center">Bonus Shares</h2>
+@if (Model.PlDetailsPartial.BonusShareLists.Any())
+{
+        <div>
+            <table id="customers" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th>SL#</th>
+                        <th>Instrument</th>
+                        <th>Quantity</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var ipo in Model.PlDetailsPartial.IPOShareLists)
+                {
+                            <tr>
+                                <td>@ipo.Firmsnm1</td>
+                                <td>@ipo.Quantity</td>
+                                <td>@ipo.Amount</td>
+                                <td>@ipo.Dat</td>
+                            </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+}
+else
+{
+        <h3 style="text-align:center">No Data Found</h3>
+}<hr />
+<h2 style="text-align:center">Right Shares</h2>
+@if (Model.PlDetailsPartial.RightShareLists.Any())
+{
+        <div>
+            <table id="customers" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th>SL#</th>
+                        <th>Instrument</th>
+                        <th>Quantity</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var ipo in Model.PlDetailsPartial.IPOShareLists)
+                {
+                            <tr>
+                                <td>@ipo.Firmsnm1</td>
+                                <td>@ipo.Quantity</td>
+                                <td>@ipo.Amount</td>
+                                <td>@ipo.Dat</td>
+                            </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+}
+else
+{
+        <h3 style="text-align:center">No Data Found</h3>
+}
+<hr />
+                    <div>
+                        <table style="width:70%" id="customers" border="0" cellspacing="0" cellpadding="0">
+                            <tbody style="font-weight:600">
+                                <tr>
+                                    <td>Opening Share Balance</td>
+                <td class="text-right">
+                    <div style="float:right">
+                        @Model.PlDetailsPartial.OpeningShareBal.GetValueOrDefault().ToString("#,##0.00")
+                    </div>
+
+                    </td>
+                                </tr>
+                                <tr>
+                                     <td>Ledger Balance</td>
+                <td>
+                    <div style="float:right">
+                        @Model.PlDetailsPartial.LedgerBal.GetValueOrDefault().ToString("#,##0.00")
+                    </div>
+                </td>
+                                </tr>
+                                 <tr>     
+                                     <td>Portfolio Value Market Price</td>
+                <td>
+                    <div style="float:right">
+                        @Model.PlDetailsPartial.PortfolioValueMarket.GetValueOrDefault().ToString("#,##0.00")
+                    </div>
+                </td>
+                                 </tr>
+                                  <tr>     
+                                   <td>Portfolio Value Cost Price</td>
+                <td>
+                    <div style="float:right">
+                        @Model.PlDetailsPartial.PortfolioValueCost.GetValueOrDefault().ToString("#,##0.00")
+                    </div>
+                </td>
+                                  </tr>
+                                    <tr>    
+                                        <td>Deposit</td>
+                <td>
+                    <div style="float:right">
+                        @Model.PlDetailsPartial.Deposit.GetValueOrDefault().ToString("#,##0.00")
+                    </div>
+                </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Withdrawn Amount</td>
+                <td>
+                    <div style="float:right">
+                        @Model.PlDetailsPartial.WithdrawnAmount.GetValueOrDefault().ToString("#,##0.00")
+                    </div>
+                </td>
+                                       </tr>
+                                       <tr>
+                                      <td>Charges</td>
+                <td>
+                    <div style="float:right">
+                        @Model.PlDetailsPartial.Charges.GetValueOrDefault().ToString("#,##0.00")
+                    </div>
+                </td>
+                                      </tr>
+                                      <tr> 
+                                          <td>Net Deposit</td>
+                <td>
+                    <div style="float:right">
+                        @Model.PlDetailsPartial.NetDeposit.GetValueOrDefault().ToString("#,##0.00")
+                    </div>
+                </td>
+                                          </tr>
+                                          <tr>
+                                       <td>Realised Capital Gain/Loss</td>
+                <td>
+                    <div style="float:right">
+                        @Model.PlDetailsPartial.RealisedCapitalGainLoss.GetValueOrDefault().ToString("#,##0.00")
+                    </div>
+                </td>
+                                       </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+<p class="pb-5">This is a computer generated Report. error/omission please call RCL call center: <b>+8809606016379</b>  or mail to : <b>rcl@royalcapitalbd.com</b></p>

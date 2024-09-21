@@ -1,0 +1,49 @@
+﻿@model RCLWEB.DATA.ViewModels.AppliedIPOVM
+@{
+    ViewData["Title"] = "AppliedIPO";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link rel="stylesheet" href="~/css/tables.css" asp-append-version="true" />
+</head>
+
+<h1 class="text-center text-primary">:: Applied IPO Information ::</h1>
+
+<div style="margin-bottom:20px" class="my-3 mb-3">
+    <partial name="_ClientDetails" model="@Model.ClientDetailsVM" />
+    @*<div class="loadingGif"></div>*@
+</div>
+
+<div class="overflow-auto">
+    <div class="table100 ver2 m-b-110 mt-5">
+        <table data-vertable="ver2">
+         <thead>
+                    <tr class="row100 head">
+                        <th style="width:10px" class="column100 column1">SL</th>
+                        <th class="column100 column1">Date</th>
+                        <th style="width:300px" class="column100 column1">IPO Name</th>
+                        <th class="column100 column1">MR No</th>
+                        <th class="column100 column1">Status</th>
+                        <th class="column100 column1">Investment</th>
+                        <th style="width:10px" class="column100 column1">Allotment</th>
+                        
+                    </tr>
+                </thead>
+       <tbody>
+           @foreach(var ipo in Model.AppliedIPOs)
+            {
+                    <tr class="row100 head">
+                        <td style="width:10px" class="column100 column1">@ipo.SL</td>
+                        <td class="column100 column1">@ipo.Date</td>
+                        <td style="width:300px" class="column100 column1">@ipo.IPOName</td>
+                        <td class="column100 column1">@ipo.MRNo</td>
+                        <td class="column100 column1">@ipo.Status</td>
+                        <td class="column100 column1">@ipo.Investment</td>
+                        <td style="width:10px" class="column100 column1">@ipo.Allotment</td>
+                </tr>
+            }
+        </tbody>
+    
+    </table>
+    </div>
+</div>

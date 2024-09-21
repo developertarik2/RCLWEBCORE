@@ -1,0 +1,51 @@
+﻿/* Paste this css to your style sheet file or under head tag */
+/* This only works with JavaScript, 
+if it's not present, don't show loader */
+.cont {
+    position: relative;
+    width: auto;
+    height: 220px;
+    /*background-color:lightblue*/
+}
+
+.cont2 {
+    position: relative;
+    width: auto;
+    height: auto
+}
+
+.loadingGif {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,.8) url('../images/794.gif') no-repeat 50%
+}
+
+.loadingGif2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background: rgba(255,255,255,.8) url('../images/loader/220.gif') no-repeat 50%
+}
+
+.loadingGif3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,.8) url('../images/loader/588.gif') no-repeat 50%
+}
+
+.loadingGif4 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,.8) url('../images/loader/55.gif') no-repeat 50%
+}

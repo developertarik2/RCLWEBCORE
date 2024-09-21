@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+ //   Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>Royal Capital -Not Found</title>
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Fredoka+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+
+    <!-- Custom stlylesheet -->
+    <link rel="stylesheet" href="~/css/notFound.css" />
+
+    
+
+</head>
+
+<body>
+
+    <div id="notfound">
+        <div class="notfound">
+            <div class="notfound-404">
+                <h1>404</h1>
+            </div>
+            <h2>Oops, The Page you are looking for can't be found!</h2>
+            <h2 class="text-danger">@ViewData["Data"]</h2>
+            <h2>@ViewBag.ErrorMessage</h2>
+            <h2>@Html.Raw(@ViewData["result"])</h2>
+
+            <a href='javascript:history.go(-1)'><span class="arrow"></span>Return To Last Page</a>
+            
+        </div>
+    </div>
+
+</body>
+
+</html>

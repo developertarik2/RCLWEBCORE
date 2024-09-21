@@ -1,0 +1,160 @@
+﻿@model RCLWEB.DATA.ViewModels.LivePortfolioVM
+
+@{
+    ViewData["Title"] = "LivePortfolio";
+    int n = 1;
+}
+<head>
+    <link rel="stylesheet" href="~/css/tables.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/clientDetails.css" asp-append-version="true" />
+    
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" asp-append-version="true" />
+   
+</head>
+<h1 class="text-center text-primary">LivePortfolio</h1>
+
+<div class="row">
+    <div class="col-md-4 ">
+        <div class="card bg-c-blue p-4 shadow-lg order-card">
+            <div class="card-block">
+                <h6 class="m-b-20">Account Holder Name: <span>@Model.ClientDetails.Aname</span></h6>
+                @*<h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>486</span></h2>*@
+                <p class="m-b-0">Address:<span class="f-right">@Model.ClientDetails.Address</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 ">
+        <div class="card bg-c-pink p-4 shadow-lg order-card">
+            <div class="card-block">
+                <h6 class="m-b-20">Father's Name: <span>@Model.ClientDetails.Aname</span></h6>
+                @*<h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>486</span></h2>*@
+                <p class="m-b-0">Mother's Name:<span class="f-right">@Model.ClientDetails.moname</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 ">
+        <div class="card bg-c-green p-4 shadow-lg order-card">
+            <div class="card-block">
+                <h6 class="m-b-20">Account No: <span>@Model.ClientDetails.Acode</span></h6>
+                @*<h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>486</span></h2>*@
+                <p class="m-b-0">BOID:<span class="f-right">@Model.ClientDetails.Boid</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="overflow-auto mx-4 card-body shadow-lg">
+    @if (Model.LivePortfolioLists.Any())
+    {
+        <div class="table100 ver2 m-b-110 mt-5">
+            <table id="myTable" data-vertable="ver2" >
+            <thead >
+                    <tr class="row100 head">
+                        <th class="column100 column1">SL#</th>
+                        <th class="column100 column1">Instrument</th>
+                        <th class="column100 column1">Total</th>
+                        <th class="column100 column1">Free</th>
+                        <th class="column100 column1">Lock</th>
+                        <th class="column100 column1">Avg Price</th>
+                        <th class="column100 column1">Total Cost</th>
+                    <th>Market Rate</th>
+                    <th>Market Value</th>
+                    <th>Gain/Loss</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var portfolioCompany in Model.LivePortfolioLists)
+                {
+
+                        <tr class="row100">
+                            <td class="column100 column1">@(n++)</td>
+                            <td class="column100 column1">@portfolioCompany.Firmsnm1</td>
+                            <td class="column100 column1">@portfolioCompany.Quantity</td>
+                            <td class="column100 column1">@portfolioCompany.Slbqty</td>
+                            <td class="column100 column1">
+                            @if (@portfolioCompany.Pldqty !=0)
+                            {
+                                @portfolioCompany.Pldqty
+                            }
+                        </td>
+                            <td class="column100 column1">
+                                @Math.Round(portfolioCompany.Rate.GetValueOrDefault(),2).ToString("#,##0.00")
+                            </td>
+                            <td class="column100 column1">@portfolioCompany.Amount.GetValueOrDefault().ToString("#,##0.00")</td>
+                            <td class="column100 column1">@portfolioCompany.MarketRate.GetValueOrDefault().ToString("#,##0.00")</td>
+                            <td class="column100 column1">@Math.Round(portfolioCompany.MarketValue.GetValueOrDefault(),2).ToString("#,##0.00")</td>
+                            <td class="column100 column1">@Math.Round(portfolioCompany.GainLoss.GetValueOrDefault(),2).ToString("#,##0.00")</td>
+                        @*<td class="text-center">
+                <a class="btn btn-info" asp-action="Index" asp-controller="Home" asp-route-code="@code.RCode">
+                <i class="fas fa-file"></i> VIEW
+                </a>
+                </td>*@
+                    </tr>
+                }
+            </tbody>
+        </table> 
+
+        </div>
+    }
+    else
+    {
+        <h1 class="text-danger text-center">No data has been found</h1>
+    }
+</div>
+
+<div class="overflow-auto mt-5">
+    <table class="table">
+        <tbody>
+            <tr class="bg-info">
+                <td>Total Buy Cost :</td>
+                <td>@Model.TotalBuyCost</td>
+                <td>Market Value:</td>
+                <td>@Model.MarketVal</td>
+            </tr>
+            <tr class="bg-primary">
+                <td>Matured Balance:</td>
+                <td>@Model.MaturedBal</td>
+                <td>Equity(All Instrument):</td>
+                <td>@Model.EquityBal</td>
+            </tr>
+            <tr class="bg-warning">
+                <td>Sale Reciveable :</td>
+                <td>@Model.SaleRec</td>
+            </tr>
+            <tr class="bg-secondary">
+                <td>Ledger Balance :</td>
+                <td>@Model.LedgerBal</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="bg-warning">Realised Gain/Loss :</td>
+                <td class="bg-warning">@Model.GainLossBalance</td>
+            </tr>
+            <tr>
+                <td class="bg-secondary">Accrued Charges :</td>
+                <td class="bg-secondary">@Model.AccruedBal</td>
+                <td class="bg-light">Un Realised Capital gain/loss :</td>
+                <td class="bg-light">@Model.UnrealiseBal</td>
+            </tr>
+            <tr>
+                <td class="bg-info">Charges & Fees :</td>
+                <td class="bg-info">@Model.ChargeFee</td>
+                <td class=" bg-danger"><b>Total Capital Gain/Loss:</b> </td>
+                <td class="bg-danger">@Model.TotalCapital</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@section scripts {
+
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+
+    </script>
+
+}
+

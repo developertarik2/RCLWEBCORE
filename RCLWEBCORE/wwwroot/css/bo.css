@@ -1,0 +1,121 @@
+﻿@charset "UTF-8"
+/* CSS document */
+
+.bo_image {
+    background-image: url('../picture/royal.png');
+    width: 612px;
+    height: 792px;
+    border-style: outset;
+    overflow: hidden;
+}
+
+
+.cls_003 {
+    font-family: 'Times New Roman';
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-style: normal;
+    padding: 5px;
+}
+
+
+.cls_004 {
+    font-family: Courier New, serif;
+    font-size: 20 px;
+    color: rgb(0, 0, 0);
+    font-weight: bolder;
+    font-style: normal;
+    text-decoration: none
+}
+
+.div.cls_004 {
+    font-family: Courier New, serif;
+    font-size: 20 px;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none
+}
+
+.cls_005 {
+    font-family: 'Times New Roman';
+    font-size: 13px;
+    color: rgb(0, 0, 0);
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: none;
+    padding: 10px;
+}
+
+
+
+
+.cls_007 {
+    font-family: Courier New, serif;
+    font-size: 20 px;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    background-color: darkgray;
+}
+
+.cls_007 {
+    font-family: Courier New, serif;
+    font-size: 20 px;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    background-color: darkgray;
+}
+
+
+.cls_008 {
+    font-family: 'Times New Roman';
+    font-size: 10px;
+    color: rgb(0, 0, 0);
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: none;
+    padding: 5px;
+}
+
+.cls_009 {
+    font-family: Arial, serif;
+    font-size: 10px;
+    color: rgb(0, 0, 0);
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: none
+}
+
+.cls_009 {
+    font-family: Arial, serif;
+    font-size: 10px;
+    color: rgb(0, 0, 0);
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: none
+}
+
+.cls_006 {
+    font-family: Times, serif;
+    font-size: 10px;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none
+}
+
+.cls_006 {
+    font-family: Times, serif;
+    font-size: 10px;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none
+}
+
+-- >

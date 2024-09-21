@@ -1,0 +1,105 @@
+﻿@model RCLWEB.DATA.ViewModels.ClientCodeListVM
+@{
+    ViewData["Title"] = "ViewAllCodes";
+    Layout = null;
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RCLWEBCORE</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    
+</head>
+<body>
+<header>
+   
+         <nav  class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-danger border-bottom box-shadow mb-3 ">
+            <div class="container-fluid">
+                
+                <a class="navbar-brand ms-2"  href="#">ROYAL CAPITAL</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">Pay CDBL</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">Change Password</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                     <ul class="navbar-nav mb-2 mb-lg-0">
+                      <li class="nav-item">
+                            @if(User.Identity.IsAuthenticated && User.IsInRole("Client"))
+                            {
+                                <a class="btn btn-warning" asp-controller="Account" asp-action="Logout" area-current="page" >
+                           <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                            }
+                            else
+                            {
+                                <a class="nav-link active" area-current="page" href="#">
+                            Login
+                        </a>
+                        }
+                      </li>
+                     </ul>
+                    </div>
+            </div>
+        </nav>
+</header>
+<h1 class="text-center text-primary mt-2">View All Codes</h1>
+
+<div class="overflow-auto mx-4">
+    @if(Model.CodeLists.Any())
+    {
+        <table class="table table-bordered">
+            <thead class="table-primary">
+             <tr>
+                 <th>Sl</th>
+                 <th>Code</th>
+                 <th>Name</th>
+                 <th>Ledger Balance</th>
+                 <th>Mature Balance</th>
+                 <th></th>
+             </tr>
+            </thead>
+            <tbody>
+                @foreach(var code in Model.CodeLists)
+                {
+                    <tr>
+                        <td>@code.Sl</td>
+                        <td>@code.RCode</td>
+                         <td>@code.FhName</td>
+                        <td>@code.Ldgbal</td>
+                        <td>@code.MatbalP</td>
+                        <td class="text-center">
+                            <a class="btn btn-info" asp-action="SetCode" asp-controller="Home" asp-route-code="@code.RCode">
+                               <i class="fas fa-file"></i> VIEW
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h1 class="text-danger text-center">No code has been found</h1>
+    }
+</div>
+
+ <footer class="border-top fixed-bottom footer text-muted">
+        <div class="container text-center mb-2">
+            &copy; 2022 - <span class="text-primary">ROYAL CAPITAL</span>  @*<a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
+        </div>
+    </footer>
+  <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+   
+      <script src="https://kit.fontawesome.com/add957eb6e.js" crossorigin="anonymous"></script>
+  </body>

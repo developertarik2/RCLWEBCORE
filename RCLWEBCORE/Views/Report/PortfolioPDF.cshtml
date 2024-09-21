@@ -1,0 +1,200 @@
+﻿@model RCLWEB.DATA.ViewModels.ClientPortfolioVM
+
+
+@{
+    ViewData["Title"] = "PortfolioPDF";
+    Layout = "~/Views/Shared/_ReportLayout.cshtml";
+    int n = 1;
+}
+
+@*<h1 style="text-align:center">Portfolio</h1>*@
+ <div style="text-align:center">
+        <h1 style="font-size:40px">Portfolio</h1><hr />
+    </div>
+    <div class="batchDetails" style="margin-left:10px">
+        <div style="float: left;width: 450px; ">
+        <div style="height:30px"><span style="color:grey">Account Holder Name :</span> <b> @Model.ClientDetails.Aname</b></div>
+        <div style="height:30px"><span style="color:grey"> Account No:</span> <b> @Model.ClientDetails.Acode</b></div>
+        <div style="height:30px"><span style="color:grey">BOID :</span><b> @Model.ClientDetails.Boid</b></div>
+        @*<p>Account No: <b>FM855</b></p>
+        <p>BOID :1201590035822238</p>*@
+        </div>
+        <div style="float: left; width: 450px;">
+        <div style="height:30px"><span style="color:grey">Father's Name :</span> <b>@Model.ClientDetails.Faname</b>  </div>
+        <div style="height:30px"><span style="color:grey">Mother's Name :</span> <b>@Model.ClientDetails.moname</b>  </div>
+        <div style="height:30px"><span style="color:grey">Address :</span> <b>@Model.ClientDetails.Address</b>  </div>
+          
+        </div>
+        @*<div style="float: left; width: 300px;">
+            <div style="height:40px">LOTTO CONF.      :  </div>
+            <p>LOTTO BULK : </p>
+        </div>*@
+        <br style="clear: left;" />
+    </div>
+
+   <div style="margin-top:60px">
+       <table id="customers" border="0" cellspacing="0" cellpadding="0">
+        <thead class="botg">
+            <tr  class="desc bl">
+                <th>SL#</th>
+                <th>Instrument</th>
+                <th>Total</th>
+                <th>Free</th>
+                <th>Lock</th>
+                <th>Avg Price</th>
+                <th>Total Cost</th>
+                <th>Market Rate</th>
+                <th>Market Value</th>
+                <th>Gain/Loss</th>
+                </tr>
+            </thead>
+            <tbody>
+               @foreach(var portfolioCompany in Model.PortfolioCompanyVMs)
+                {
+                <tr style="color:black" class="ct">
+                <td>@(n++)</td>
+                    <td style="text-align:left">@portfolioCompany.Firmsnm1</td>
+                    <td style="text-align:right">@portfolioCompany.Quantity</td>
+                    <td style="text-align:right">@portfolioCompany.Slbqty</td>
+                        <td> @if(portfolioCompany.Pldqty !=0)
+                            {
+                                @portfolioCompany.Pldqty
+                            }
+                        </td>
+                    <td style="text-align:right">@Math.Round(portfolioCompany.Rate.GetValueOrDefault(),2).ToString("#,##0.00")</td>
+                    <td style="text-align:right">@portfolioCompany.Amount.GetValueOrDefault().ToString("#,##0.00")</td>
+                    <td style="text-align:right">@portfolioCompany.Mktrt.GetValueOrDefault().ToString("#,##0.00")</td>
+                    <td style="text-align:right;">@portfolioCompany.Mktamt.GetValueOrDefault().ToString("#,##0.00")</td>
+                    <td style="text-align:right">
+                        @if (Convert.ToDouble(portfolioCompany.Mktamt) - Convert.ToDouble(portfolioCompany.Amount) <0)
+                        {
+                            <span style="color:red"> @(Math.Round((Convert.ToDouble(portfolioCompany.Mktamt) - Convert.ToDouble(portfolioCompany.Amount)), 2).ToString("#,##0.00"))</span>
+                        }
+                        else
+                        {
+                            <span> @(Math.Round((Convert.ToDouble(portfolioCompany.Mktamt) - Convert.ToDouble(portfolioCompany.Amount)), 2).ToString("#,##0.00"))</span>
+                        }
+
+                    </td>
+            </tr>
+                }
+               
+            </tbody>
+            <tfoot>
+            <tr style="color:black">
+                <td style="text-align:right" colspan="2">Grand-Total</td>
+                <td style="text-align:right" colspan="5"><b>@Model.TotalBuyCost.GetValueOrDefault().ToString("#,##0.00")</b></td>
+                <td style="text-align:right" colspan="2"><b>@Model.MarketVal.GetValueOrDefault().ToString("#,##0.00")</b> </td>
+                <td style="text-align:right"><b>@Model.UnrealiseBal.GetValueOrDefault().ToString("#,##0.00")</b> </td>
+            </tr>
+            </tfoot>
+        </table>
+   </div>
+
+   <div>
+    <hr />
+   @* <h2 style="text-align:center">Pending IPO Applications</h2>
+    @if(Model.PendingShares.Any())
+    {
+        <table id="customers" border="0" cellspacing="0" cellpadding="0">
+            <thead class="pri">
+                <tr>
+                    <th>SL#</th>
+                    <th>IPO NAME</th>
+                    <th>IPO AMOUNT</th>
+                    <th>Applied Date</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ipo in Model.PendingShares)
+                {
+
+                    <tr class="ct">
+                        <td>@(n++)</td>
+                        <td>@ipo.IPO_NAME</td>
+                        <td>@ipo.IPO_AMOUNT</td>
+                        <td>@ipo.AppliedDate</td>
+                        
+                        
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h4 style="text-align:center">No data has been found</h4>
+    }
+    <hr />*@
+</div>
+    <div style="margin-top:40px" >
+    <table style="margin-left:20px;margin-right:20px" width="90%" id="customerBalance" border="0" cellspacing="0" cellpadding="0">
+        <tbody style="color:black">
+            <tr>
+                <td>Total Buy Cost :</td>
+                <td class="rt">@Model.TotalBuyCost.GetValueOrDefault().ToString("#,##0.00")</td><td></td>
+                <td><span style="margin-left:20px">Market Value of Securities:</span> </td>
+                <td class="rt"><b>@Model.MarketVal.GetValueOrDefault().ToString("#,##0.00")</b> </td>
+            </tr>
+            <tr>
+                <td>Matured Fund:</td>
+                <td class="rt">@Model.MaturedBal.GetValueOrDefault().ToString("#,##0.00")</td>
+                <td></td>
+                <td> <span style="margin-left:20px">Equity(All Instrument):</span></td>
+                <td class="rt">@Model.EquityBal.GetValueOrDefault().ToString("#,##0.00")</td>
+            </tr>
+            <tr>
+                <td>Receivable Sales:</td>
+                <td class="rt">@Model.SaleRec.GetValueOrDefault().ToString("#,##0.00")</td>
+                <td></td>
+                <td> <span style="margin-left:20px">Equity (Marginable Instrument):</span></td>
+                <td class="rt">@Model.EquityBal.GetValueOrDefault().ToString("#,##0.00")</td>
+            </tr>
+            <tr>
+                <td>Ledger Balance :</td>
+                <td class="rt">@Model.LedgerBal.GetValueOrDefault().ToString("#,##0.00")</td>
+                <td></td>
+                <td>
+                    <span style="font-size:16px;margin-left:30px;font-weight:bold">
+                        Capital Gain/ (Loss)
+                    </span>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><span style="margin-left:20px">Realised:</span> </td>
+                <td class="rt">@Model.RglBal.GetValueOrDefault().ToString("#,##0.00")</td>
+            </tr>
+            <tr>
+                <td>Accrued Charges :</td>
+                <td class="rt">@Model.AccruedBal.GetValueOrDefault().ToString("#,##0.00")</td>
+                <td></td>
+                <td><span style="margin-left:20px">Un Realised:</span> </td>
+                <td class="rt">@Model.UnrealiseBal.GetValueOrDefault().ToString("#,##0.00")</td>
+            </tr>
+            <tr>
+                <td>Charges & Fees :</td> 
+                <td class="bg-info rt">
+                    @if(Model.ChargeFee !=null)
+                    {
+                        <span>@Model.ChargeFee</span>
+                    }
+                    else
+                    {
+                        <span> 0.00</span>
+                    }
+                   
+                </td>
+                <td></td>
+                <td><span style="margin-left:20px"><b>Total Capital Gain/Loss:</b></span>  </td>
+                <td class="rt"><b>@Model.TotalCapital.GetValueOrDefault().ToString("#,##0.00")</b> </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+   
+

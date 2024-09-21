@@ -1,0 +1,100 @@
+﻿@model RCLWEB.DATA.ViewModels.LedgerVM
+
+
+@{
+    ViewData["Title"] = "PortfolioPDF";
+    Layout = "~/Views/Shared/_ReportLayout.cshtml";
+    int n = 1;
+}
+
+@*<h1 style="text-align:center">Portfolio</h1>*@
+@*<div style="text-align:center">
+    <h1 style="font-size:40px">Portfolio</h1><hr />
+</div>*@
+<h2 style="text-align:center">
+    Transaction Period <span style="color:darkblue">@Model.FromDate.ToString("dd-MMMM-yyy")</span>
+    to <span style="color:darkblue">@Model.ToDate.ToString("dd-MMMM-yyy")</span>
+</h2><hr />
+<div class="batchDetails" style="margin-left:10px">
+    <div style="float: left;width: 450px; ">
+        <div style="height:30px"><span style="color:grey">Account Holder Name :</span> <b> @Model.ClientDetails.Aname</b></div>
+        <div style="height:30px"><span style="color:grey"> Account No:</span> <b> @Model.ClientDetails.Acode</b></div>
+        <div style="height:30px"><span style="color:grey">BOID :</span><b> @Model.ClientDetails.Boid</b></div>
+        @*<p>Account No: <b>FM855</b></p>
+        <p>BOID :1201590035822238</p>*@
+    </div>
+    <div style="float: left; width: 450px;">
+        <div style="height:30px"><span style="color:grey">Father's Name :</span> <b>@Model.ClientDetails.Faname</b>  </div>
+        <div style="height:30px"><span style="color:grey">Mother's Name :</span> <b>@Model.ClientDetails.moname</b>  </div>
+        <div style="height:30px"><span style="color:grey">Address :</span> <b>@Model.ClientDetails.Address</b>  </div>
+
+    </div>
+    @*<div style="float: left; width: 300px;">
+    <div style="height:40px">LOTTO CONF.      :  </div>
+    <p>LOTTO BULK : </p>
+    </div>*@
+    <br style="clear: left;" />
+</div>
+
+<div style="margin-top:60px">
+    <table id="customers" border="0" cellspacing="0" cellpadding="0">
+        <thead class="botg">
+            <tr class="desc bl">
+                <th>Voucher</th>
+               <th width="13%" >Date</th>
+                        <th colspan="2">Particulars</th>
+                        @*<th>Instrument</th>*@
+                        <th>Quantity</th>
+                        <th>Rate</th>
+                        <th>Debit</th>
+                        <th>Credit</th>
+                        <th>Comission</th>
+                        <th width="13%">Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ledger in Model.LedgerDetails)
+            {
+                <tr style="color:black" class="ct">
+                    <td>@ledger.Vno</td>
+                    <td class="lt">@Convert.ToDateTime(ledger.Tdate).ToString("dd-MMM-yyyy")</td>
+                            <td class="lt">
+                                @if(ledger.Type=="Buy")
+                                {
+                                    <span style="color:forestgreen"> @ledger.Type</span>
+                                }
+                                else if(ledger.Type=="Sale")
+                                {
+                                    <span style="color:mediumpurple"> @ledger.Type</span>
+                                }
+                                 else 
+                                {
+                                    <span> @ledger.Type</span>
+                                }
+                                </td>
+                            <td class="lt">@ledger.Narr</td>
+                            <td class="rt">@ledger.Quantity</td>
+                            <td class="rt">@Math.Round(Convert.ToDecimal(ledger.Rate),2)</td>
+                            <td class="rt">@ledger.Debit.GetValueOrDefault().ToString("#,##0.00")</td>
+                            <td class="rt">@ledger.Credit.GetValueOrDefault().ToString("#,##0.00")</td>
+                            <td class="rt">@Math.Round(ledger.Commission.GetValueOrDefault(),2).ToString("#,##0.00")</td>
+                            <td class="rt">
+                                @if(ledger.TotalBalance <0)
+                                {
+                                    <span style="color:red"> @Math.Round(Convert.ToDecimal(ledger.TotalBalance),2).ToString("#,##0.00")</span>
+                                }
+                                else
+                                {
+                                    <span> @Math.Round(Convert.ToDecimal(ledger.TotalBalance),2).ToString("#,##0.00")</span>
+                                }
+                               
+                                </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+

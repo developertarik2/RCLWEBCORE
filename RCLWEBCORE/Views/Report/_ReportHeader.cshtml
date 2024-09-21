@@ -1,0 +1,117 @@
+﻿@model RCLWEB.DATA.ViewModels.ReportHeaderVM
+
+<!DOCTYPE html>
+<head>
+    <style>
+        .Row {
+            display: table;
+            width: 100%; /*Optional*/
+            table-layout: fixed; /*Optional*/
+            /*border-spacing: 10px;*/ /*Optional*/
+        }
+
+        .Column {
+            display: table-cell;
+            /*background-color: red;*/ /*Optional*/
+        }
+
+        #logo2 {
+            float: left;
+            margin-top: -15px;
+        }
+
+            #logo2 img {
+                height: auto;
+                width: auto;
+            }
+
+        #company2 {
+          /*  margin-top: -10px;*/
+            float: right;
+            /*text-align: right;*/
+        }
+
+    </style>
+    <script>
+        var pdfInfo = {};
+        var x = document.location.search.substring(1).split('&');
+        for (var i in x) { var z = x[i].split('=', 2); pdfInfo[z[0]] = unescape(z[1]); }
+        function getPdfInfo() {
+            var page = pdfInfo.page || 1;
+            var pageCount = pdfInfo.topage || 1;
+            document.getElementById('pdfkit_page_current').textContent = page;
+            document.getElementById('pdfkit_page_count').textContent = pageCount;
+        }
+        window.onload = function () {
+            getPdfInfo();
+        };
+    </script>
+</head>
+<body>
+   
+@*    <div style="margin-top:5px">
+        <div class="Row">
+            <div style="font-size:13px;letter-spacing: 1px;" class="Column">Print Time: @DateTimeOffset.Now.ToString("dd MMM, yyyy hh:mm:ss tt K")</div>
+            <div class="Column">
+               @* <span style="margin-left:0px;font-size:11px;">Page [<span id="pdfkit_page_current"></span> of <span id="pdfkit_page_count"></span>]</span>*
+            </div>
+            <div class="Column">
+                <span style="margin-left:0px;font-size:11px;">Page [<span id="pdfkit_page_current"></span> of <span id="pdfkit_page_count"></span>]</span>
+            </div>
+        </div>
+    </div>*@
+    <div class="Row">
+        <div class="Column">
+            <div id="logo2">
+                <img src="~/images/rcl-logo.png">
+
+               
+            </div>
+      </div>
+        <div class="Column">
+            </div>
+        <div class="Column">
+            <div id="company2">
+                <span style="font-weight:bold">ROYAL CAPITAL LIMITED</span><br />
+                <span style="font-size:13px">DSE Annex Building, 9/E</span><br />
+                <span style="font-size:13px">Motijheel C/A, Dhaka</span><br />
+                <span style="font-size:13px">Hotline: 16379, 09606555333</span>
+
+            
+
+            </div>
+        </div>
+           
+
+        
+    </div><hr />
+    <h3 style="text-align:center">
+        Ledger : from <span style="color:darkblue">@Model.FromDate.ToString("dd MMMM, yyyy")</span>
+        to <span style="color:darkblue">@Model.ToDate.ToString("dd MMMM, yyyy")</span>
+    </h3>
+    <hr />
+    <div style="font-size:15px">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Name:  @Model.Aname</td>
+                    <td style="padding-left:25px">
+                        @if (Model.aatype != "INDIVIDUAL")
+                        {
+                            <span>:Joint holder: @Model.jname1</span>
+                        }
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>Code: @Model.Acode</td>
+                    <td style="padding-left:25px">BOID: @Model.Boid</td>
+                </tr>
+                <tr>
+                    <td colspan="2">Address: @Model.Address</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>

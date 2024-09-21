@@ -1,0 +1,424 @@
+﻿@font-face {
+    font-family: SourceSansPro;
+    src: url(SourceSansPro-Regular.ttf);
+}
+
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+a {
+    color: #0087C3;
+    text-decoration: none;
+}
+
+.pDate {
+    width: 150px
+}
+
+.check {
+    width: 120px
+}
+
+.user {
+    width: 120px
+}
+
+body {
+    position: relative;
+    /*width: 21cm;  
+ /* height: 29.7cm; */
+    size: 7in 9.25in;
+    margin: 0 auto;
+    margin-left:5px;
+    margin-right:5px;
+    color: #555555;
+    background: #FFFFFF;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-family: SourceSansPro;
+}
+
+header {
+    padding: 10px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #AAAAAA;
+}
+
+#logo {
+    float: left;
+    margin-top: 3px;
+}
+
+    #logo img {
+        height: auto;
+        width: auto;
+    }
+
+#company {
+    margin-top: -10px;
+    float: right;
+    text-align: right;
+}
+
+
+#details {
+    margin-bottom: 25px;
+}
+
+#client {
+    padding-left: 6px;
+    border-left: 6px solid #0087C3;
+    float: left;
+}
+
+#machine {
+    padding-left: 6px;
+    border-left: 6px solid #037794;
+    float: left;
+}
+
+#client .to {
+    color: #777777;
+}
+
+.batchDetails {
+    width: 900px;
+    padding-left: 6px;
+    border-left: 6px solid #0087C3;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #0087C3;
+}
+
+h2.name {
+    font-size: 1.4em;
+    font-weight: normal;
+    margin: 0;
+    color: #0087C3;
+    text-align: left;
+}
+
+.lef {
+    text-align: left;
+}
+
+#invoice {
+    float: right;
+    text-align: right;
+}
+
+    #invoice h1 {
+        color: #0087C3;
+        font-size: 2.4em;
+        line-height: 1em;
+        font-weight: normal;
+        margin: 0 0 10px 0;
+    }
+
+    #invoice .date {
+        font-size: 1.1em;
+        color: #777777;
+    }
+
+/*table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 20px;
+}
+table thead {
+    display: table-header-group;
+}
+
+table tfoot {
+    display: table-row-group;
+}
+
+table tr {
+    page-break-inside: avoid;
+}
+table th,
+table td {
+  padding: 20px;*/
+/*background: #EEEEEE;*/
+/*text-align: center;
+  border-bottom: 1px solid #EEEEEE;
+}
+
+table th {
+  background: #96d1e0;
+  white-space: nowrap;        
+  font-weight: normal;
+}
+
+table td {
+  text-align: right;
+}
+
+table td h3{
+  color: #57B223;
+  font-size: 1.2em;
+  font-weight: normal;
+  margin: 0 0 0.2em 0;
+}
+.bl{
+  font-weight: bold;
+  font-size: 20px
+}
+table .no {
+  color: #FFFFFF;
+  font-size: 1.6em;
+  background: #57B223;
+}
+.bd{
+    border-right:solid
+}
+table .desc {
+  text-align: left;
+  
+}
+
+.fs{
+  font-size: 15px
+}
+
+table .unit {
+  background: #DDDDDD;
+}
+
+table .qty {
+  text-align: center;
+}
+
+table .total {
+  background: #57B223;
+  color: #FFFFFF;
+}
+table .mid{
+    text-align:center
+}
+table td.unit,
+table td.qty,
+table td.total {
+  font-size: 1.2em;
+}
+
+table tbody tr:last-child td {*/
+/* border: none;*/
+/*}
+
+table tfoot td {
+  padding: 10px 20px;
+  background: #FFFFFF;
+  border-bottom: none;
+  font-size: 1.2em;
+  white-space: nowrap; 
+  border-top: 1px solid #AAAAAA; 
+}
+
+table tfoot tr:first-child td {
+  border-top: none; 
+}
+
+table tfoot tr:last-child td {
+  color: #57B223;
+  font-size: 1.4em;
+  border-top: 1px solid #57B223; 
+
+}
+
+table tfoot tr td:first-child {
+  border: none;
+}*/
+#customers tr {
+    page-break-inside: avoid;
+}
+
+#customers {
+    margin-top: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    #customers td, #customers th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #customers tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #customers tr:hover {
+        background-color: #ddd;
+    }
+
+    #customers th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+        color: white;
+    }
+
+#customerBalance tr {
+    page-break-inside: avoid;
+}
+#customerBalance {
+    margin-top: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 90%;
+}
+
+    #customerBalance td, #customerBalance th {
+        border-bottom: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #customerBalance tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #customerBalance tr:hover {
+        background-color: #ddd;
+    }
+
+    #customerBalance th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+        color: white;
+    }
+
+.center {
+    text-align: center
+}
+.rt{
+    text-align:right
+}
+
+.lt{
+    text-align:left
+}
+.gre {
+    background-color: #4CAF50;
+}
+
+.pri {
+    background-color: #0275d8
+}
+
+.succs {
+    background-color: #5cb85c
+}
+
+.mar {
+    background-color: #cd196f;
+}
+
+.botg {
+    background-color: #1e7166;
+}
+
+#thanks {
+    font-size: 2em;
+    margin-bottom: 50px;
+}
+
+#notices {
+    padding-left: 6px;
+    border-left: 6px solid #0087C3;
+}
+
+    #notices .notice {
+        font-size: 1.2em;
+    }
+
+footer {
+    color: #777777;
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid #AAAAAA;
+    padding: 8px 0;
+    text-align: center;
+}
+
+input[type='radio'] {
+    -webkit-appearance: none;
+    /*vertical-align: middle;*/
+    width: 10px;
+    height: 10px;
+    border: 1px solid darkgray;
+    border-radius: 50%;
+    outline: none;
+    box-shadow: 0 0 5px 0px gray inset;
+}
+
+    input[type='radio']:hover {
+        box-shadow: 0 0 5px 0px orange inset;
+    }
+
+    input[type='radio']:before {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        /*margin: 20% auto;    */
+        border-radius: 50%;
+    }
+
+    input[type='radio']:checked:before {
+        background: #28bbe0;
+    }
+
+.ct {
+    text-align: center
+}
+
+/* CQ Images */
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto;
+    background-color: #2196F3;
+    padding: 10px;
+}
+
+.grid-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
+    text-align: left;
+    margin: 5px;
+    width: auto
+}
+
+
+.dd {
+    box-sizing: border-box;
+}
+
+/* Create three equal columns that floats next to each other */
+.columnCq {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    height: 300px; /* Should be removed. Only for demonstration */
+    box-sizing: border-box;
+}
+
+/* Clear floats after the columns */
+.rowCq:after {
+    content: "";
+    display: table;
+    clear: both;
+    box-sizing: border-box;
+}

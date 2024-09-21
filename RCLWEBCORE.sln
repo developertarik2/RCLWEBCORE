@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCLWEBCORE", "RCLWEBCORE\RCLWEBCORE.csproj", "{68A4D349-6A83-4F67-BA3A-389EE87ABB54}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCLWEB.DATA", "RCLWEB.DATA\RCLWEB.DATA.csproj", "{3F6BB03D-B035-4C92-BEA2-B9DA1225C91A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RCLWEBCORE.Insfrastructures", "RCLWEBCORE.Insfrastructures\RCLWEBCORE.Insfrastructures.csproj", "{1BA6C243-B39A-4A3F-B25E-7F19D85C8493}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3AC88533-4844-4228-AE2A-F04B07658387}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RCLWEB.Utility", "RCLWEB.Utility\RCLWEB.Utility.csproj", "{2CD21356-BF83-4DFD-A5FD-6B133E607F03}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68A4D349-6A83-4F67-BA3A-389EE87ABB54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68A4D349-6A83-4F67-BA3A-389EE87ABB54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68A4D349-6A83-4F67-BA3A-389EE87ABB54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68A4D349-6A83-4F67-BA3A-389EE87ABB54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F6BB03D-B035-4C92-BEA2-B9DA1225C91A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F6BB03D-B035-4C92-BEA2-B9DA1225C91A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F6BB03D-B035-4C92-BEA2-B9DA1225C91A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F6BB03D-B035-4C92-BEA2-B9DA1225C91A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BA6C243-B39A-4A3F-B25E-7F19D85C8493}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BA6C243-B39A-4A3F-B25E-7F19D85C8493}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BA6C243-B39A-4A3F-B25E-7F19D85C8493}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BA6C243-B39A-4A3F-B25E-7F19D85C8493}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CD21356-BF83-4DFD-A5FD-6B133E607F03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CD21356-BF83-4DFD-A5FD-6B133E607F03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CD21356-BF83-4DFD-A5FD-6B133E607F03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CD21356-BF83-4DFD-A5FD-6B133E607F03}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0413D9B1-2497-4365-A07B-3F2B9AB5F7FD}
+	EndGlobalSection
+EndGlobal

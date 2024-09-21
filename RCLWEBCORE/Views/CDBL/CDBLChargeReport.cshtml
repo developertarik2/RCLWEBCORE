@@ -1,0 +1,56 @@
+﻿@model RCLWEB.DATA.ViewModels.CDBLChargeReportVM
+
+
+@{
+    ViewData["Title"] = "CDBLChargeReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/tables.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" asp-append-version="true" />
+</head>
+
+<h1 class="text-center text-primary">:: CDBL Charge Payment Report ::</h1>
+
+<p>Client Code: <span class="badge-success">@Model.RCODE</span></p>
+
+@if (Model.CHARGEs.Any())
+{
+    <div class="overflow-auto">
+        <div class="table100 ver2 m-b-110 mt-5">
+            <table data-vertable="ver2">
+                <thead>
+                    <tr class="row100 head">
+                        <th style="width:300px" class="column100 column1">Year</th>
+                        <th class="column100 column1">Duration</th>
+                        <th class="column100 column1">Amount</th>
+                        <th class="column100 column1">Date</th>
+                        <th class="column100 column1">Note</th>
+                       
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var charge in Model.CHARGEs)
+                    {
+                        <tr class="row100 head">
+                            <td style="width:300px" class="column100 column1">@charge.YEAR</td>
+                            <td class="column100 column1">@charge.FISCAL</td>
+                            <td class="column100 column1">@charge.AMOUNT</td>
+                            <td class="column100 column1">@charge.DATE.ToString("dd-MM-yyyy")</td>
+                            <td class="column100 column1">@charge.NOTE</td>
+                         
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+}
+
+else
+{
+    <h4 class="text-danger text-center">No data has been found</h4>
+}

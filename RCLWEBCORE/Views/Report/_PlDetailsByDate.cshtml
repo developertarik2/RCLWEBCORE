@@ -1,0 +1,293 @@
+﻿@model RCLWEB.DATA.ViewModels.PlDetailsPartialVM
+
+@{
+    int n = 0;
+}
+<head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" asp-append-version="true" />
+  
+</head>
+<h3 class="text-center text-info my-4">Transaction Period: @Model.FromDate.ToString("dd-MMMM-yyyy") To @Model.ToDate.ToString("dd-MMMM-yyyy")</h3>
+@if (Model.PlDetailList != null)
+{
+   
+
+    <div class="overflow-auto">
+        <table style="font-size:14px" class="table table-bordered table-hover">
+        <thead class="bg-info">
+            <tr>
+                    <th>SL#</th>
+                    <th>Instrument</th>
+                    <th>Bought Quantity</th>
+                    <th>Bought Cost</th>
+                    <th>Sold Quantity</th>
+                    <th>Sold Cost</th>
+                    <th>Realised Gain/Loss</th>
+                    <th>Balance Quantity</th>
+                    <th>Balance Rate</th>
+                    <th>Balance Amount</th>
+                    <th>Market Rate</th>
+                    <th>Market Amount</th>
+                    <th>Unrealised Gain</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var pl in Model.PlDetailList)
+            {
+                    n++;
+                    <tr>
+                        <td>@n</td>
+                        <td>@pl.Firmsnm1</td>
+                        <td>@pl.BuyQnty</td>
+                        <td>@Convert.ToDecimal(pl.BuyAmount).ToString("#,##0.00")</td>
+                        <td>@pl.SaleQnt</td>
+                        <td>@Convert.ToDecimal(pl.SaleAmnt).ToString("#,##0.00")</td>
+                        <td>@Convert.ToDecimal(pl.RG).ToString("#,##0.00")</td>
+                        <td>@pl.BQ</td>
+                        <td>@pl.BR</td>
+                        <td>@Convert.ToDecimal(pl.BA).ToString("#,##0.00")</td>
+                        <td>@pl.TMR</td>
+                        <td>@Convert.ToDecimal(pl.TMA).ToString("#,##0.00")</td>
+                        <td>@Convert.ToDecimal(pl.TUG).ToString("#,##0.00")</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">
+                    <div style="float:right;font-weight:bold">
+                            @Model.BoughtCost.ToString("#,##0.00")
+                    </div>
+                    
+                    </td>
+                <td colspan="2">
+                    <div style="float:right;font-weight:bold">
+                            @Model.SoldCost.ToString("#,##0.00")
+                    </div>
+                   
+                    </td>
+                <td>
+                    <div style="float:right;font-weight:bold">
+                            @Model.RealisedCapitalGainLoss.GetValueOrDefault().ToString("#,##0.00")
+                    </div>
+                    
+                    </td>
+                <td colspan="3">
+                     <div style="float:right;font-weight:bold">
+                            @Model.BalanceAmnt.ToString("#,##0.00")
+                    </div>
+                    
+                    </td>
+                <td colspan="2">
+                        <div style="float:right;font-weight:bold">
+                            @Model.MarketAmnt.ToString("#,##0.00")
+                        </div>
+                    </td>
+                    <td colspan="2">
+                        <div style="float:right;font-weight:bold">
+                            @Model.UnrealisedGain.ToString("#,##0.00")
+                        </div>
+                    </td>
+            </tr>
+        </tfoot>
+        </table>
+    </div>
+}
+else
+{
+    <h3 class="text-danger text-center">No data found</h3>
+}
+<hr />
+<h2 class="text-center text-primary">IPL Shares</h2>
+ @if(Model.IPOShareLists.Any())
+        {
+            <div class="overflow-auto">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>SL#</th>
+                            <th>Instrument</th>
+                            <th>Quantity</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var ipo in Model.IPOShareLists)
+                        {
+                            <tr>
+                                <td>@ipo.Firmsnm1</td>
+                                <td>@ipo.Quantity</td>
+                                <td>@ipo.Amount</td>
+                                <td>@ipo.Dat</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+    </div>
+}
+else
+{
+    <h3 class="text-center text-danger">No Data Found</h3>
+}
+<hr />
+<h2 class="text-center text-primary">Bonus Shares</h2>
+@if (Model.BonusShareLists.Any())
+{
+    <div class="overflow-auto">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>SL#</th>
+                    <th>Instrument</th>
+                    <th>Quantity</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ipo in Model.IPOShareLists)
+                {
+                    <tr>
+                        <td>@ipo.Firmsnm1</td>
+                        <td>@ipo.Quantity</td>
+                        <td>@ipo.Amount</td>
+                        <td>@ipo.Dat</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <h3 class="text-center text-danger">No Data Found</h3>
+}<hr />
+<h2 class="text-center text-primary">Right Shares</h2>
+@if (Model.RightShareLists.Any())
+{
+    <div class="overflow-auto">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>SL#</th>
+                    <th>Instrument</th>
+                    <th>Quantity</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ipo in Model.IPOShareLists)
+                {
+                    <tr>
+                        <td>@ipo.Firmsnm1</td>
+                        <td>@ipo.Quantity</td>
+                        <td>@ipo.Amount</td>
+                        <td>@ipo.Dat</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <h3 class="text-center text-danger">No Data Found</h3>
+}
+<hr />
+                    <div class="overflow-auto">
+                        <table  style="width:70%" class="table table-hover table-bordered">
+                            <tbody style="font-weight:600">
+                                <tr>
+                                    <td>Opening Share Balance</td>
+                <td class="text-right">
+                    <div style="float:right">
+                        @Model.OpeningShareBal.GetValueOrDefault().ToString("#,##0.00")
+                    </div>
+                   
+                    </td>
+                                </tr>
+                                <tr>
+                                     <td>Ledger Balance</td>
+                <td>
+                    <div style="float:right">
+                        @Model.LedgerBal.GetValueOrDefault().ToString("#,##0.00")
+                    </div>
+                </td>
+                                </tr>
+                                 <tr>     
+                                     <td>Portfolio Value Market Price</td>
+                <td>
+                    <div style="float:right">
+                        @Model.PortfolioValueMarket.GetValueOrDefault().ToString("#,##0.00")
+                    </div>
+                </td>
+                                 </tr>
+                                  <tr>     
+                                   <td>Portfolio Value Cost Price</td>
+                <td>
+                    <div style="float:right">
+                        @Model.PortfolioValueCost.GetValueOrDefault().ToString("#,##0.00")
+                    </div>
+                </td>
+                                  </tr>
+                                    <tr>    
+                                        <td>Deposit</td>
+                <td>
+                    <div style="float:right">
+                        @Model.Deposit.GetValueOrDefault().ToString("#,##0.00")
+                    </div>
+                </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Withdrawn Amount</td>
+                <td>
+                    <div style="float:right">
+                        @Model.WithdrawnAmount.GetValueOrDefault().ToString("#,##0.00")
+                    </div>
+                </td>
+                                       </tr>
+                                       <tr>
+                                      <td>Charges</td>
+                <td>
+                    <div style="float:right">
+                        @Model.Charges.GetValueOrDefault().ToString("#,##0.00")
+                    </div>
+                </td>
+                                      </tr>
+                                      <tr> 
+                                          <td>Net Deposit</td>
+                <td>
+                    <div style="float:right">
+                        @Model.NetDeposit.GetValueOrDefault().ToString("#,##0.00")
+                    </div>
+                </td>
+                                          </tr>
+                                          <tr>
+                                       <td>Realised Capital Gain/Loss</td>
+                <td>
+                    <div style="float:right">
+                        @Model.RealisedCapitalGainLoss.GetValueOrDefault().ToString("#,##0.00")
+                    </div>
+                </td>
+                                       </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+<p class="pb-5">This is a computer generated Report. error/omission please call RCL call center: +8809606016379 or mail to : rcl@royalcapitalbd.com</p>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+
+</script>
+@section scripts {
+
+
+
+}

@@ -1,0 +1,81 @@
+﻿@model RCLWEB.DATA.ViewModels.IPOGenieRegVM
+@{
+    ViewData["Title"] = "IpoGenieReg";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h1>IpoGenieReg</h1>*@
+
+<div class="text-center">
+    <img style="height:25%;width:25%" class="img-fluid" src="~/images/IPOGenieLogo.png"/>
+</div>
+<h5 class="text-primary mt-3 text-center">This section contains the Terms of Use of the Royal "IPO Genie": By avaling this service you are agreeing to these Terms.</h5>
+<div class="mt-3">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Under this service you heareby give consent to Royal Capital Ltd. 
+            (RCL) to apply all the forthcoming IPO (except Mutual Funds and which RCL think fit not to apply) on your behalf.</li>
+        <li class="list-group-item"> You will keep sufficient balance in your account to avail this service. 
+            If your account dose not have sufficient balance then you can not held responsible RCL for not applying any IPO (S).</li>
+        <li class="list-group-item">RCL reserves the right to delete, modify, change or discontinue this service without giving notice to any user, 
+            individual, group of individuals and institutions.</li>
+ 
+</ul>
+</div>
+<hr />
+<div class="mt-3">
+    @if (ViewData["msg"] != null)
+    {
+        <div>
+            <span class="badge bg-success">@ViewData["msg"]</span>
+        </div>
+    }
+</div>
+@if(!Model.Activate)
+{
+    <h4 class="text-danger text-center my-2">This Service is Not Active For Your Code <span class="text-info font-italic">@Model.RCODE</span> </h4>
+    <form action="" method="post">
+        <div class="form-group row">
+
+            <div class="col-md-2">
+                <label>CODE</label>
+            </div>
+            <div class="col-md-2">
+                <input class="form-control" asp-for="RCODE" readonly/>
+                <input type="hidden" asp-for="Activate" />
+            </div>
+            
+        </div>
+        <p class="text-warning font-weight-bold"><b>To activate this service press the button below</b> </p>
+        <button id="bt1" type="submit" class="mt-1 btn btn-success" >I Agree</button>
+    </form>
+}
+else
+{
+    <h4>This Service is Already Active For Your Code @Model.RCODE</h4>
+    <h4>To deactivate this service, please contact with nearest branch or call at: 09606016379</h4>
+}
+
+@section scripts{
+    <script>
+        $('#bt1').on('click',function(e){
+    e.preventDefault();
+    var form = $(this).parents('form');
+    swal({
+        title: "Are you sure you want to activate?",
+        text: "You will not be able to restore the content!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, activate it!",
+        closeOnConfirm: false
+    }, function(isConfirm){
+        if (isConfirm){
+        console.log("saaaaaa");
+        form.submit();
+        } //form.submit();
+    });
+});
+    </script>
+   
+}
+

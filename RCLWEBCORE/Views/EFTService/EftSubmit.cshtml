@@ -1,0 +1,133 @@
+﻿@model RCLWEB.DATA.ViewModels.EftSubmitVM
+
+
+@{
+    ViewData["Title"] = "EftSubmit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center text-primary">Submit EFT Requisition</h1>
+
+<div>
+   Ledger Balance <span class="badge bg-primary">@Model.LedgrBal</span>
+</div>
+<div>
+    Matured Balance Balance <span class="badge bg-success">@Model.MatureBal</span>
+</div>
+<hr />
+@if(Model.PendingTrans.Count() == 0)
+{
+    <div class="card-body m-3">
+    <div class="text-danger" asp-validation-summary="All"></div>
+    <form action="" method="post">
+        <input type="hidden" asp-for="MatureBal" />
+        <input type="hidden" asp-for="LedgrBal" />
+        <div class="row">
+            <div class="col-md-6">
+                <label>Your CODE</label>
+                <input class="form-control" asp-for="RCODE" readonly/>
+            </div>
+            <div class="col-md-6">
+                <label>Amount(৳(BDT))</label>
+                <input class="form-control" asp-for="Amount"  required/>
+            </div>
+        </div>
+        <button class="btn btn-primary mt-3">SUBMIT</button>
+    </form>
+
+    <div class="mt-3">
+        @if (ViewData["msg"] !=null)
+        {
+            <div>
+                <span class="badge bg-success">@ViewData["msg"]</span>
+            </div>
+        }
+    </div>
+</div>
+}
+
+@if(Model.PendingTrans !=null && Model.PendingTrans.Any())
+{
+    <h4 class="text-center my-4 text-danger">
+        You have <span class="font-weight-bold text-info">@Model.PendingTrans.Count()</span>  unprocessed EFT application(s). For any query contact with our helpline:
+        <span class="font-italic font-weight-bold text-primary">09606555333</span>
+    </h4>
+    <hr />
+
+    <div class="card-body overflow-auto">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Number</th>
+                    <th>Code</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Registered</th>
+                    <th>Deleted</th>
+                    <th>I/F</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model.PendingTrans)
+                {
+                    <tr>
+                        <td>@item.Dat?.ToString("dd-MMMM-yyyy")</td>
+                        <td>@item.SMS_Number</td>
+                        <td>@item.RCODE</td>
+                        <td>@item.Amount</td>
+                        <td>
+                            @if(item.Status == "NO" && (((item.Flag1 == 1 || item.Flag2 == 0)) || (item.Clr == 0)))
+                           {
+                                <span>Processing...</span>                               
+                           }
+                            @if((item.Status=="NO") && (item.Flag1==0 || item.Flag2==1 || item.Clr == 1) )
+                            {
+                                <span>Deny...</span>
+                            }
+                            @if(item.Status=="YES")
+                            {
+                                <span>Received...</span>
+                            }
+                        </td>
+                        <td>
+                           @if(item.Flag1 == 1)
+                            {
+                                <span>YES</span>
+                            }
+                            @if (item.Flag1 == 0)
+                            {
+                                 <span>NO</span>
+                            }
+                            @if (item.Flag1 == 11)
+                            {
+                                <span>From Web</span>
+                            }
+                        </td>
+                        <td>
+                            @if(item.Flag2==1)
+                            {
+                                <span>Yes</span>
+                            }
+                            @if (item.Flag2 == 0)
+                            {
+                                 <span>No</span>
+                            }
+                        </td>
+                        <td>
+                            @if(item.Clr==1)
+                            {
+                                <span>Yes</span>
+                            }
+                            @if (item.Clr == 0)
+                            {
+                                <span>No</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+

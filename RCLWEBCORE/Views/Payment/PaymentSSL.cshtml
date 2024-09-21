@@ -1,0 +1,15 @@
+﻿@model RCLWEB.DATA.ViewModels.PaymentVM
+@{
+    ViewData["Title"] = "PaymentSSL";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>: Deposit in Your Account ::</h1>
+
+<div class="text-danger" asp-validation-summary="All"></div>
+<form method="post" action="">
+    <input asp-for="Amount" />
+    <input type="hidden" asp-for="Code" />
+    <button  type="submit">SUBMIT</button>
+</form>
+<a class="btn btn-primary" href="/payment/checkout"> <i class="fa fa-check"></i> Checkout</a>

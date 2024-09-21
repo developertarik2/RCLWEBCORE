@@ -1,0 +1,111 @@
+﻿@model RCLWEB.DATA.ViewModels.ConfirmationByDateVM
+
+@*<link rel="stylesheet" href="~/css/tables.css" asp-append-version="true" />*@
+
+
+<div class="overflow-auto mx-4 mt-3">
+    @if (Model.ConfirmationDetailsList.Any())
+    {
+        <div class="overflow-auto">
+            <table class="table table-hover">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Exchange</th>
+                        <th>Code</th>
+                        <th class="column100 column1">Instrument</th>
+                        <th class="column100 column1">Buy Quantity</th>
+                        <th class="column100 column1">Buy Rate</th>
+                        <th class="column100 column1">Buy Amount</th>
+                        <th class="column100 column1">Sale Quantity</th>
+                        <th class="column100 column1">Sale Rate</th>
+                        <th class="column100 column1">Sale Amount</th>
+                        <th class="column100 column1">Balance Quantity</th>
+                        <th class="column100 column1">Com (B+S)</th>
+                        <th class="column100 column1">Balance</th>
+                       @* <th class="column100 column1">NAOT</th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var confirm in Model.ConfirmationDetailsList)
+                    {
+
+                        <tr class="row100">
+                            @* <td class="column100 column1">@(n++)</td>*@
+                            <td class="column100 column1">@confirm.Exch</td>
+                            <td class="column100 column1">@confirm.CODE</td>
+                            <td class="column100 column1">@confirm.Instrument</td>
+                            <td class="column100 column1">@confirm.BuyQty</td>
+                            <td class="column100 column1">@Math.Round(Convert.ToDecimal(confirm.BuyRate),2)</td>
+                            <td class="column100 column1">@Math.Round(Convert.ToDouble(confirm.BuyAmt),2)</td>
+                            <td class="column100 column1">@confirm.SaleQty</td>
+                            <td class="column100 column1">@confirm.SaleRate</td>
+                            <td class="column100 column1">@confirm.SaleAmt</td>
+                            <td class="column100 column1">@confirm.BalQty</td>
+                            <td class="column100 column1">@Math.Round(Convert.ToDecimal(confirm.Com_B_S),2)</td>
+                            <td class="column100 column1">@Math.Round(Convert.ToDouble(confirm.Balance),2).ToString("#,##0.00")</td>
+                           @* <td class="column100 column1">@Math.Round(Convert.ToDecimal(ledger.TotalBalance),2)</td>*@
+                            @* <td class="column100 column1">
+                    @if (@portfolioCompany.Pldqty != 0)
+                    {
+                    @portfolioCompany.Pldqty
+                    }
+                    </td>
+                    <td class="column100 column1">
+                    @Math.Round(portfolioCompany.Rate.GetValueOrDefault(),2)
+                    </td>
+                    <td class="column100 column1">@portfolioCompany.Amount</td>
+                    <td class="column100 column1">@portfolioCompany.MarketRate</td>
+                    <td class="column100 column1">@Math.Round(portfolioCompany.MarketValue.GetValueOrDefault(),2)</td>
+                    <td class="column100 column1">@Math.Round(portfolioCompany.GainLoss.GetValueOrDefault(),2)</td>*@
+                            @*<td class="text-center">
+                    <a class="btn btn-info" asp-action="Index" asp-controller="Home" asp-route-code="@code.RCode">
+                    <i class="fas fa-file"></i> VIEW
+                    </a>
+                    </td>*@
+                        </tr>
+                    }
+                </tbody>
+                <tfoot class="table-info">
+                    <tr>
+                        <td colspan="12">
+                            <div style="float:right" class="text-right">
+                                @Math.Round(Convert.ToDouble(Model.NetAmountTrading),2).ToString("#,##0.00")
+                            </div>
+                           
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+
+        </div>
+        <div class="mb-3 pb-5">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Ledger balance before trading</td> <td>@Convert.ToDecimal(Model.Ledger).ToString("#,##0.00")</td>
+                    </tr>
+                    <tr>
+                        <td>Add: Receipt</td>
+                        <td>@Model.Reciept</td>
+                    </tr>
+                    <tr>
+                        <td>Less: Payment</td>
+                        <td>@Model.Payment</td>
+                    </tr>
+                    <tr>
+                        <td>Net Amount of Trading</td>
+                        <td>@Math.Round(Convert.ToDouble(Model.NetAmountTrading),2).ToString("#,##0.00")</td>
+                    </tr>
+                    <tr class="table-warning">
+                        <td>Closing Balance of the day</td>
+                        <td>@Convert.ToDecimal(Model.ClosingBalance).ToString("#,##0.00")</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <h1 class="text-danger text-center">No data has been found</h1>
+    }
+</div>

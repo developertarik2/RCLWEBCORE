@@ -1,0 +1,67 @@
+﻿@model RCLWEB.DATA.ViewModels.TaxVM
+@{
+    ViewData["Title"] = "TaxPDF";
+    Layout = "~/Views/Shared/_ReportLayout.cshtml";
+}
+
+<h1 style="text-align:center">To Whom It May Concern</h1><hr />
+<p>
+        This is to certify that <b>Mr./Mrs. @Model.ClientDetails?.Aname</b> Client Code : <b>@Model.ClientDetails?.Acode</b> BO ID: <b>@Model.ClientDetails?.Boid</b>
+        has been maintaining an
+        Account with our Brokerage House. His/ Her detail information are given bellow:
+</p>
+<h3 style="text-align:center">Transaction Period: <b>@Model.TaxPartial.FromDate.ToString("dd-MMMM-yyyy") To @Model.TaxPartial.ToDate.ToString("dd-MMMM-yyyy")</b> </h3>
+<hr />
+
+    <p>Father's/Husband's Name : <b> @Model.ClientDetails?.Faname</b> </p>
+    <p>Mother's Name : <b> @Model.ClientDetails?.moname</b> </p>
+    <p>Address : <b> @Model.ClientDetails?.Address</b></p>
+
+     <div style="margin-top:60px">
+        <table id="customers" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+                <tr>
+                    <td><b>Opening Equity</b> </td>
+                    <td class="font-weight-bold"><b>@Model.TaxPartial.TaxDateToDate.OpeningEquity.GetValueOrDefault().ToString("#,##0.00")</b> </td>
+                    <td><b>Closing Equity</b> </td>
+                    <td><b> @Model.TaxPartial.TaxDateToDate.ClosingEquity.GetValueOrDefault().ToString("#,##0.00")</b></td>
+                </tr>
+                <tr>
+                    <td>Deposit During This Period</td>
+                    <td>@Model.TaxPartial.TaxDateToDate.Deposit.GetValueOrDefault().ToString("#,##0.00")</td>
+                    <td>Withdrawal</td>
+                    <td>@Model.TaxPartial.TaxDateToDate.Withdraw.GetValueOrDefault().ToString("#,##0.00")</td>
+                </tr>
+                <tr>
+                    <td>Securities Deposit</td>
+                    <td>@Model.TaxPartial.TaxDateToDate.SD.GetValueOrDefault().ToString("#,##0.00")</td>
+                    <td>Securities Withdrawal</td>
+                    <td>@Model.TaxPartial.TaxDateToDate.SW.GetValueOrDefault().ToString("#,##0.00")</td>
+                </tr>
+                <tr>
+                    <td>Charge & Fees</td>
+                    <td>@Model.TaxPartial.TaxDateToDate.Charge.GetValueOrDefault().ToString("#,##0.00")</td>
+                    <td><b>Balance as on (Cr/Dr)</b></td>
+                    <td><b>@Model.TaxPartial.TaxDateToDate.Balance.GetValueOrDefault().ToString("#,##0.00")</b></td>
+                </tr>
+                <tr>
+                    <td><b>Cost Value of Securites</b></td>
+                    <td><b>@Model.TaxPartial.TaxDateToDate.CV.GetValueOrDefault().ToString("#,##0.00")</b></td>
+                    <td><b>Market Value of Securites</b></td>
+                    <td><b>@Model.TaxPartial.TaxDateToDate.MVS.GetValueOrDefault().ToString("#,##0.00")</b> </td>
+                </tr>
+                <tr>
+                    <td colspan="3"><b>Realised Capital Gain/Loss</b> </td>
+                    <td><b>@Model.TaxPartial.TaxDateToDate.RG.GetValueOrDefault().ToString("#,##0.00")</b> </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p>(All figures are in Bangladeshi Taka)</p>
+    <div class="mt-3 mb-3 pb-4">
+        Signature not required. This is a computer generated Report. error/omission please call RCL call center: <b>+8809606016379</b>  <br />
+        or mail to :
+    <b>rcl@royalcapitalbd.com</b>
+</div>
+
